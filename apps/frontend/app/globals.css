@@ -1,8 +1,10 @@
 @import "tailwindcss";
-
+@import url('https://fonts.googleapis.com/css2?family=Boldonse&display=swap');
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --font-logo: "Boldonse", system-ui; 
+
 }
 
 @theme inline {
