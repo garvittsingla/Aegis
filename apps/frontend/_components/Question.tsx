@@ -3,13 +3,17 @@ export default function Question({
     options,
     handleselectedanswers,
     questionnumber,
-    answeredquestions
+    answeredquestions,
+    nextquestion,
+    lastquestion
   }: {
     questionname: String,
     options: String[],
     handleselectedanswers: (index: number, optionindex: number) => void,
     questionnumber: number,
-    answeredquestions: object[]
+    answeredquestions: object[],
+    nextquestion:()=>void,
+    lastquestion:()=>void
   }) {
     const isAnswered = (index: number): boolean => {
       return answeredquestions[questionnumber].selectedOption === options[index];
@@ -51,6 +55,12 @@ export default function Question({
               <p className="text-white text-lg">{itm}</p>
             </div>
           ))}
+          <div className=" w-full h-10 flex justify-end">
+            <div className=" w-1/2 h-full flex gap-4 px-15 font-semibold  ">
+                <button className="bg-purple-500 px-2 rounded-md cursor-pointer hover:bg-purple-700" onClick={lastquestion}>Previous</button>
+                <button className="bg-purple-500 px-8 rounded-md cursor-pointer hover:bg-purple-700" onClick={nextquestion}>Next</button>
+            </div>
+          </div>
         </div>
       </div>
     );
