@@ -5,7 +5,8 @@ export default function Question({
     questionnumber,
     answeredquestions,
     nextquestion,
-    lastquestion
+    lastquestion,
+    className
   }: {
     questionname: String,
     options: String[],
@@ -13,7 +14,8 @@ export default function Question({
     questionnumber: number,
     answeredquestions: object[],
     nextquestion:()=>void,
-    lastquestion:()=>void
+    lastquestion:()=>void,
+    className:String
   }) {
     const isAnswered = (index: number): boolean => {
       return answeredquestions[questionnumber].selectedOption === options[index];
@@ -25,11 +27,11 @@ export default function Question({
     })
   
     return (
-      <div className="h-full w-3/4 flex px-5 py-3 flex-col bg-[#171717]/60 rounded-xl ">
+      <div className={`h-full w-3/4 flex px-5 py-3 flex-col bg-[#171717]/60 rounded-xl ${className}`}>
         <div className="h-2/8 w-[80%] mx-auto overflow-y-auto items-center border-white/40 text-lg flex my-4 border-b">
           <div className="flex flex-col gap-2">
             <div className="text-[#B0B0B0] text-sm font-md">Question.{questionnumber + 1}</div>
-            <div className="text-xl">{questionname}</div>
+            <div className="text-2xl font-lg">{questionname}</div>
           </div>
         </div>
         <div className="h-6/8 w-[80%] mx-auto flex flex-col gap-2 py-1">

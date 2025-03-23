@@ -1,14 +1,21 @@
-import {WalletMinimal} from "lucide-react" 
+import StarBorder from "@/animations/StarBorder/StarBorder"
+import {WalletMinimal,ShieldOff} from "lucide-react" 
 export default function Navbar(){
 
     return(
         <nav  className="w-[80%]    mx-auto px-4  py-5 border-b border-zinc-900 flex justify-between items-center   rounded-lg">
-            <div   className="left  text-2xl font-bold   ">Aegis</div>
+           <div className="left flex items-center gap-2 text-xl font-[boldonse] relative">
+                <div className="flex z-10 gap-2">
+                    <span><ShieldOff className="text-purple-400"/></span>
+                    <span>Aegis</span>
+                </div>
+                <div className="absolute bottom-1 left-2 w-full h-3 bg-purple-400 rounded-full blur-lg opacity-60"></div>
+            </div>
             <div className="right"> 
-                <div className="bg-slate-800/60 px-2 font-medium text-sm py-3 rounded-lg flex gap-2 items-center ">
-                    <span><WalletMinimal/></span>
-                    bsadjbasldalysgdlauysfduav
-                    <span></span>
+                <div className=" ">
+                    <StarBorder className="">
+                        Connect Wallet
+                    </StarBorder>
                 </div>
             </div>
         </nav>

@@ -198,6 +198,7 @@
     const lastquestion =() =>{
       setcurrentquestion(prev=>prev-1)
     }
+
     const handleselectedanswers = (index: number, optionindex: number) => {
       setansweredquestions((prev) => {
         const exists = prev.findIndex(q => q.questionIndex === index);
@@ -234,23 +235,24 @@
     
     
     return(
-      <div className="h-screen font-mono bg-black w-full">
+      <div className="h-screen font-[poppins] bg-black w-full">
         <Navbar/>
-        <div className="w-full h-10 flex justify-center items-center gap-2 ">
+        <div className="w-full h-10 flex justify-center items-center gap-5 ">
           <div className="text-white flex mt-3 flex-col "> 
-            <span>RUST Final Test</span>
+            <span>Rust Final Test</span>
             <span className="text-xs text-slate-500">Session 1</span>
           </div>
           <div className="w-4/7 h-3 ring-1 ring-amber-50 overflow-hidden border-slate-600 rounded-md ">
             <div style={{ 
             width: `${(answeredquestionsnumber() / questions.length) * 100}%` 
-          }} className={`h-full bg-purple-800`}> </div>
+          }} className={`h-full bg-purple-800 shadow-2xl shadow-purple-600`}> </div>
           </div>
           <span className="text-sm"> {Math.round((answeredquestionsnumber() / questions.length) * 100)}%</span>
         </div>
         <div className="w-[80%] h-5/7 p-3 flex items-center justify-between  mx-auto  ">
        
-          <Question nextquestion={nextquestion} lastquestion={lastquestion} answeredquestions={answeredquestions} handleselectedanswers={handleselectedanswers} questionname={questions[currentquestion].question} options={questions[currentquestion].options} questionnumber={currentquestion}/>
+          <Question className={"mt-3"} nextquestion={nextquestion} lastquestion={lastquestion} answeredquestions={answeredquestions} handleselectedanswers={handleselectedanswers} questionname={questions[currentquestion].question} options={questions[currentquestion].options} questionnumber={currentquestion}/>
+          <div className="h-[80%] w-[1px] bg-white/10"></div>
         <Questionselector answeredquestions={answeredquestions} setcurrentquestion={setcurrentquestion} questionlength={questions.length} currentquestion={currentquestion} />
 
         </div>
