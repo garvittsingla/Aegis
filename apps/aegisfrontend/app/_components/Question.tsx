@@ -1,5 +1,5 @@
 export default function Question({
-    questionname,
+  questionname,
     options,
     handleselectedanswers,
     questionnumber,
@@ -31,7 +31,7 @@ export default function Question({
         <div className="h-2/8 w-[80%] mx-auto overflow-y-auto items-center border-white/40 text-lg flex my-4 border-b">
           <div className="flex flex-col gap-2">
             <div className="text-[#B0B0B0] text-sm font-md">Question.{questionnumber + 1}</div>
-            <div className="text-2xl font-lg">{questionname}</div>
+            <div className="text-2xl font-lg text-white">{questionname}</div>
           </div>
         </div>
         <div className="h-6/8 w-[80%] mx-auto flex flex-col gap-2 py-1">
@@ -58,8 +58,8 @@ export default function Question({
             </div>
           ))}
           <div className=" w-full h-10 flex justify-end">
-            <div className=" w-1/2 h-full flex gap-4 px-15 font-semibold  ">
-                <button className="bg-purple-500 px-2 rounded-md cursor-pointer hover:bg-purple-700" onClick={lastquestion}>Previous</button>
+            <div className=" w-1/2 h-full flex gap-4 px-15 font-semibold text-white ">
+                <button className="bg-purple-500 px-4 rounded-md cursor-pointer hover:bg-purple-700" onClick={lastquestion}>Previous</button>
                 <button className="bg-purple-500 px-8 rounded-md cursor-pointer hover:bg-purple-700" onClick={nextquestion}>Next</button>
             </div>
           </div>

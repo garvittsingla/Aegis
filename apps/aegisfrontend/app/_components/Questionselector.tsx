@@ -19,7 +19,7 @@ export default function Questionselector({setcurrentquestion,questionlength,curr
     } 
 
     return(
-        <div className="h-full w-[23%] bg-[#171717]/60 rounded-xl overflow-y-auto mt-4 px-3 py-4">
+        <div className="h-full w-[23%] bg-[#171717]/60 rounded-xl overflow-y-auto mt-4 px-3 text-white py-4">
         <div  className=" flex flex-wrap gap-2 justify-between w-full  ">
           {questionumbers.map((itm,index)=>{
             return(

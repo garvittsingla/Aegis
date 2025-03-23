@@ -1,7 +1,7 @@
   "use client"
-  import Navbar from "@/_components/Navbar";
-  import Question from "@/_components/Question";
-  import Questionselector from "@/_components/Questionselector";
+  import Navbar from "../_components/Navbar";
+  import Question from "../_components/Question";
+  import Questionselector from "../_components/Questionselector";
   import { useState } from "react";
 
   interface AnsweredQuestion {
@@ -237,6 +237,9 @@
     return(
       <div className="h-screen font-[poppins] bg-black w-full">
         <Navbar/>
+        <div>
+          
+        </div>
         <div className="w-full h-10 flex justify-center items-center gap-5 ">
           <div className="text-white flex mt-3 flex-col "> 
             <span>Rust Final Test</span>
@@ -253,7 +256,7 @@
        
           <Question className={"mt-3"} nextquestion={nextquestion} lastquestion={lastquestion} answeredquestions={answeredquestions} handleselectedanswers={handleselectedanswers} questionname={questions[currentquestion].question} options={questions[currentquestion].options} questionnumber={currentquestion}/>
           <div className="h-[80%] w-[1px] bg-white/10"></div>
-        <Questionselector answeredquestions={answeredquestions} setcurrentquestion={setcurrentquestion} questionlength={questions.length} currentquestion={currentquestion} />
+        <Questionselector answeredquestions={answeredquestions} setcurrentquestion={setcurrentquestion}  questionlength={questions.length} currentquestion={currentquestion} />
 
         </div>
         <div className="w-[50%]  mx-auto flex items-center justify-end px-15 mt-4">
