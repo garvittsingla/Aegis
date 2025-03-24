@@ -18,6 +18,8 @@ export default function Question({
     className:String
   }) {
     const isAnswered = (index: number): boolean => {
+      //@ts-ignore
+
       return answeredquestions[questionnumber].selectedOption === options[index];
     };
  

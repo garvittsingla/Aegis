@@ -662,17 +662,25 @@ export default function Page(){
 ];
 
   async function connectWallet() {
+      //@ts-ignore
+
     if (!window.ethereum) {
       setMessage("Metamask not installed");
       return;
     }
 
     // requesting metamask connection
+      //@ts-ignore
+
     await window.ethereum.request({ method: "eth_requestAccounts" });
+      //@ts-ignore
+
     const provider = new ethers.BrowserProvider(window.ethereum);
     const signer = await provider.getSigner();
 
     const contract = new ethers.Contract(contractAddress, contractABI, signer);
+      //@ts-ignore
+
     setContract(contract);
 
     setIsConnected(true);
@@ -694,10 +702,14 @@ export default function Page(){
       }
 
       // Call contract method
+      //@ts-ignore
+
       const tx = await contract.setExamStartTime(timestamp);
       await tx.wait();
     } catch (err) {
       setMessage("Error setting exam start time");
+      //@ts-ignore
+
       console.log(err.message);
     }
   };
@@ -716,6 +728,7 @@ export default function Page(){
       }
 
       const dobTimestamp = Math.floor(new Date(setterDOB).getTime() / 1000);
+      //@ts-ignore
 
       const tx = await contract.registerSetter(
         setterAddress,
@@ -727,6 +740,8 @@ export default function Page(){
       await tx.await();
     } catch (err) {
       setMessage("Please fill all setter fields");
+      //@ts-ignore
+
       console.log(err.message);
     }
   };

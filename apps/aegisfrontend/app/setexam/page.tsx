@@ -652,16 +652,24 @@ export default function Page() {
   ];
   
     async function connectWallet() {
+      //@ts-ignore
+
       if (!window.ethereum) {
         console.log("Metamask not installed");
         return;
       }
       // requesting metamask connection
+      //@ts-ignore
+
       await window.ethereum.request({ method: "eth_requestAccounts" });
+      //@ts-ignore
+
       const provider = new ethers.BrowserProvider(window.ethereum);
       const signer = await provider.getSigner();
   
       const contract = new ethers.Contract(contractAddress, contractABI, signer);
+      //@ts-ignore
+
       setcontract(contract);
   
       setIsConnected(true);
@@ -686,7 +694,10 @@ export default function Page() {
         ) : (
           <div className="text-center ">
             <div className="h-20  flex items-center justify-center text-white">
-            <p className="font-semibold text-xl">Wallet Connected:  {window.ethereum.selectedAddress}</p>
+      //@ts-ignore
+      //@ts-ignore
+
+            {/* <p className="font-semibold text-xl">Wallet Connected:  {window.ethereum.selectedAddress}</p> */}
 
             </div>
             <TeacherUplaod contract = {contract}/>

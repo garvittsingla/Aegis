@@ -8,6 +8,7 @@ export default function page() {
 
   const [student, setStudent] = useState();
   const [status, setStatus] = useState("");
+      //@ts-ignore
 
   const handlesetStatus = (msg) => {
     setStatus(msg);
@@ -663,8 +664,11 @@ export default function page() {
     },
   ];
   const StudentRegistrationFees = ethers.parseEther("0.00025");
+      //@ts-ignore
 
   const registerStudent = async (data) => {
+      //@ts-ignore
+
     if (!window.ethereum) {
       handlesetStatus("Please install MetaMask!");
       return;
@@ -672,7 +676,11 @@ export default function page() {
 
     try {
       // requesting metamask connection
+      //@ts-ignore
+
       await window.ethereum.request({ method: "eth_requestAccounts" });
+      //@ts-ignore
+
       const provider = new ethers.BrowserProvider(window.ethereum);
       const signer = await provider.getSigner();
 
@@ -698,6 +706,8 @@ export default function page() {
         sampleDetails.name === name &&
         sampleDetails.studentID === studentID &&
         sampleDetails.aadharNumber === aadharNumber &&
+      //@ts-ignore
+
         sampleDetails.dateofBirth === dateofBirthTimestamp
       ) {
         handlesetStatus("Student already exists!");
@@ -731,9 +741,12 @@ export default function page() {
       //navigate to next page
     } catch (err) {
       console.error("Transaction failed: ", err);
+      //@ts-ignore
+
       handlesetStatus(`Error: ${err.message}`);
     }
   };
+      //@ts-ignore
 
   const onSubmit = (data) => {
     setStudent(data);

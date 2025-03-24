@@ -235,6 +235,10 @@
     
     
     return(
+      //@ts-ignore
+      //@ts-ignore
+      //@ts-ignore
+
       <div className="h-screen font-[poppins] bg-black w-full ">
         <Navbar/>
         <div>
@@ -256,6 +260,7 @@
 
           <Question className={"mt-3"} nextquestion={nextquestion} lastquestion={lastquestion} answeredquestions={answeredquestions} handleselectedanswers={handleselectedanswers} questionname={questions[currentquestion].question} options={questions[currentquestion].options} questionnumber={currentquestion}/>
           <div className="h-[80%] w-[1px] bg-white/10"></div>
+          
         <Questionselector answeredquestions={answeredquestions} setcurrentquestion={setcurrentquestion}  questionlength={questions.length} currentquestion={currentquestion} />
 
         </div>

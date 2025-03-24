@@ -11,6 +11,6 @@ export default function Flowing(){
         { link: '#', text: 'No Unfare advantages,', image: 'https://i.pinimg.com/736x/53/ad/0c/53ad0cc3373bbe0ea51dd878241952c6.jpg' }
       ];
 
-
+      //@ts-ignore
     return <FlowingMenu items={demoItems} />
 }

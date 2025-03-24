@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-function TeacherUplaod({ contract }) {
+function TeacherUplaod({ contract }:{contract:any}) {
   const [question, setQuestion] = useState();
     //set it as a global state/ in smart contract?
     const [CID, setCid] = useState();
@@ -10,7 +10,7 @@ function TeacherUplaod({ contract }) {
   const PINATA_API_KEY = "34e5a156dcda211cc4f4";
   const PINATA_SECRET_KEY = "96406ebf4e15091bb9878ff7c58970ea4731465d78bdb200369ec52233fce8d8";
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e:any) => {
     e.preventDefault();
     const uploadQues = e.target.form.elements[0].value;
     const setName = e.target.form.elements[1].value;
