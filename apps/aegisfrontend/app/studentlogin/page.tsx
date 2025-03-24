@@ -105,6 +105,7 @@ function StudentLogin() {
   const [quesCID, setQuesCID] = useState(""); // Stores question CID for potential answer submission
   const [quesSet_name, setQuesSet_name] = useState(""); // Stores question set name
   const [accessTime, setAccessTime] = useState(null); // Stores access time
+  const [publickey,setpublickey] = useState(null)
 
   // Owner contract details (to authenticate student)
   const contractAddressOwner = "0x30adbefb04d58f9587338844bfab487e4aaec19c"; // Replace with actual address
@@ -1228,7 +1229,7 @@ function StudentLogin() {
       }
       console.log(questionJson);
       setQuestionsData(questionJson);
-	 window.location.href="./test"
+	window.location.href=`./studentdashboard/${publickey}`
     } catch (err) {
       setMessage("Error fetching questions: " + err.message);
       console.log(err.message);
@@ -1242,6 +1243,7 @@ function StudentLogin() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const value = e.target.form.elements[0].value;
+	setpublickey(value)
     await authenticateUser(value);
   };
 
@@ -1261,12 +1263,12 @@ function StudentLogin() {
         Aegis
       </div>
       {/* Navigation Links (Desktop) */}
-      <div className="hidden md:flex items-center space-x-6">
+      {/* <div className="hidden md:flex items-center space-x-6">
         <a href="#" className="text-white font-poppins hover:text-purple-400 transition-colors duration-300">About</a>
         <a href="#" className="text-white font-poppins hover:text-purple-400 transition-colors duration-300">My Tests</a>
         <a href="#" className="text-white font-poppins hover:text-purple-400 transition-colors duration-300">Tokenomics</a>
         <a href="#" className="text-white font-poppins hover:text-purple-400 transition-colors duration-300">Airdrop</a>
-      </div>
+      </div> */}
       {/* Hamburger Menu (Mobile) */}
       <div className="md:hidden">
         <button className="text-white focus:outline-none">
