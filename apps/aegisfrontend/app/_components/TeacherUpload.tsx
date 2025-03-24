@@ -1,53 +1,65 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { PinataSDK } from "pinata";
 
 function TeacherUplaod({ contract }:{contract:any}) {
   const [question, setQuestion] = useState();
     //set it as a global state/ in smart contract?
-    const [CID, setCid] = useState();
+    const [CID, setCid] = useState<string>();
 
 // add in .env import.meta.env.
   const PINATA_API_KEY = "34e5a156dcda211cc4f4";
   const PINATA_SECRET_KEY = "96406ebf4e15091bb9878ff7c58970ea4731465d78bdb200369ec52233fce8d8";
 
+  const pinata = new PinataSDK({
+    pinataJwt: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiJlMmY1NWJhOS1mNmE1LTRiNzMtODg3MC1mZjI3YTBmMDc4NzMiLCJlbWFpbCI6ImthcnRpazExODIuYmVjc2UyNEBjaGl0a2FyYS5lZHUuaW4iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwicGluX3BvbGljeSI6eyJyZWdpb25zIjpbeyJkZXNpcmVkUmVwbGljYXRpb25Db3VudCI6MSwiaWQiOiJGUkExIn0seyJkZXNpcmVkUmVwbGljYXRpb25Db3VudCI6MSwiaWQiOiJOWUMxIn1dLCJ2ZXJzaW9uIjoxfSwibWZhX2VuYWJsZWQiOmZhbHNlLCJzdGF0dXMiOiJBQ1RJVkUifSwiYXV0aGVudGljYXRpb25UeXBlIjoic2NvcGVkS2V5Iiwic2NvcGVkS2V5S2V5IjoiMzRlNWExNTZkY2RhMjExY2M0ZjQiLCJzY29wZWRLZXlTZWNyZXQiOiI5NjQwNmViZjRlMTUwOTFiYjk4NzhmZjdjNTg5NzBlYTQ3MzE0NjVkNzhiZGIyMDAzNjllYzUyMjMzZmNlOGQ4IiwiZXhwIjoxNzc0MjcwMzczfQ.OMsCboJ-0_JrAf6P7KPrAGb9iN3kHUDvd2N3VI6nDE0",
+    pinataGateway: "yellow-adverse-dragonfly-365.mypinata.cloud",
+  });
+
   const handleSubmit = async (e:any) => {
     e.preventDefault();
     const uploadQues = e.target.form.elements[0].value;
+    // const test = JSON.parse(uploadQues);
+    console.log(uploadQues);
     const setName = e.target.form.elements[1].value;
     const setAccessTime = e.target.form.elements[2].value;
     setQuestion(uploadQues);
 
     try {
-        //creating a proper JSON object to send to Pinata as useState is async and does not get updated immediately
-        const jsonData = {
-            question: uploadQues
-        }
+        //we need to pass an array of objects.
+        const jsonData = JSON.stringify(uploadQues);
+        console.log(jsonData);
+        console.log(typeof JSON.parse(jsonData));
 
       // Make the API request to Pinata
-      const response = await axios.post(
-        "https://api.pinata.cloud/pinning/pinJSONToIPFS",
-        jsonData,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            pinata_api_key: PINATA_API_KEY,
-            pinata_secret_api_key: PINATA_SECRET_KEY,
-          },
-        }
-      );
+      // const response = await axios.post(
+      //   "https://api.pinata.cloud/pinning/pinJSONToIPFS",
+      //   jsonData,
+      //   {
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //       pinata_api_key: PINATA_API_KEY,
+      //       pinata_secret_api_key: PINATA_SECRET_KEY,
+      //     },
+      //   }
+      // );
+
+      const upload = await pinata.upload.public.base64(jsonData);
+      console.log(upload.cid);
+      const cidString = upload.cid;
 
       // Getting the CID
-      const ipfsHash = response.data.IpfsHash;
+      // const ipfsHash = response.data.IpfsHash;
     //   console.log("Successfully pinned JSON to IPFS with hash:", ipfsHash);
 
-      setCid(ipfsHash);
+      setCid(cidString);
 
       const unlockTime = Math.floor(
         new Date(setAccessTime).getTime() / 1000
       );
 
       const transaction = await contract.appendQuestionCID({
-        ipfsHash,
+        cidString,
         setName,
         unlockTime
     });
