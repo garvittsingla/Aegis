@@ -16,10 +16,8 @@ export default function Home() {
             <span className="text-xl font-bold font-[boldonse]">AEGIS</span>
           </div>
           <div className="flex items-center gap-6">
-            <Link href="/about" className="text-sm hover:text-gray-300">About</Link>
-            <Link href="/my-tests" className="text-sm hover:text-gray-300">My Tests</Link>
-            <Link href="/tokenomics" className="text-sm hover:text-gray-300">Tokenomics</Link>
-            <Link href="/airdrop" className="text-sm hover:text-gray-300">Airdrop</Link>
+            <Link href="/admin" className="text-sm hover:text-gray-300">Admin</Link>
+            <Link href="/setexam" className="text-sm hover:text-gray-300">Setexam</Link>
             <button  className="px-4 py-3 bg-purple-600 rounded-full text-sm font-semibold hover:bg-purple-700">
               <Link href="./newstudentregister">Register</Link>
             </button>
@@ -77,10 +75,12 @@ export default function Home() {
           </svg>
 
           <div className="absolute bottom-10 right-10 z-10">
+            <Link href="./studentlogin">
             <button className="flex items-center gap-2 px-6 py-3 bg-lime-400 text-black rounded-full font-semibold hover:bg-lime-500 transition-all drop-shadow-[0_4px_8px_rgba(0,255,0,0.5)]">
-              Get Started for Free
+              Go to a exisitng exam 
               <span className="text-xl">→</span>
             </button>
+            </Link>
           </div>
         </div>
 

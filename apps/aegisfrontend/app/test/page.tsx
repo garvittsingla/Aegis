@@ -1,4 +1,5 @@
   "use client"
+import { div } from "framer-motion/client";
   import Navbar from "../_components/Navbar";
   import Question from "../_components/Question";
   import Questionselector from "../_components/Questionselector";
@@ -12,11 +13,13 @@
 
   export default function Page(){
 
+    const [submitted,setsubmitted] = useState(false)
+
     const questions = [
-      {
-        question: "Who is father of Ketan goyal?",
-        options: ["Garvit", "chotu", "Pauuu", "Takla"]
-      },
+      // {
+      //   question: "Who is father of Ketan goyal?",
+      //   options: ["Garvit", "chotu", "Pauuu", "Takla"]
+      // },
       // ... (existing 20 questions remain the same)
       {
         question: "What is the closest star to Earth?",
@@ -54,128 +57,145 @@
         question: "Which is the most abundant gas in Earth's atmosphere?",
         options: ["Oxygen", "Carbon Dioxide", "Nitrogen", "Argon"]
       },
-      {
-        question: "What is the capital of Australia?",
-        options: ["Sydney", "Melbourne", "Canberra", "Perth"]
-      },
-      {
-        question: "Who painted 'The Starry Night'?",
-        options: ["Van Gogh", "Monet", "Picasso", "Da Vinci"]
-      },
-      {
-        question: "What is the smallest planet in our solar system?",
-        options: ["Mars", "Venus", "Mercury", "Pluto"]
-      },
-      {
-        question: "What is the chemical symbol for silver?",
-        options: ["Si", "Ag", "Au", "Fe"]
-      },
-      {
-        question: "Who invented the light bulb?",
-        options: ["Tesla", "Edison", "Franklin", "Bell"]
-      },
-      {
-        question: "What is the fastest land animal?",
-        options: ["Lion", "Cheetah", "Leopard", "Tiger"]
-      },
-      {
-        question: "Which metal is liquid at room temperature?",
-        options: ["Lead", "Iron", "Mercury", "Copper"]
-      },
-      {
-        question: "What is the human body's largest muscle?",
-        options: ["Biceps", "Gluteus Maximus", "Quadriceps", "Deltoids"]
-      },
-      {
-        question: "Who was the first person to walk on the moon?",
-        options: ["Buzz Aldrin", "Neil Armstrong", "Yuri Gagarin", "John Glenn"]
-      },
-      {
-        question: "What is the boiling point of water in Celsius?",
-        options: ["90°C", "95°C", "100°C", "105°C"]
-      },
-      {
-        question: "What is the capital of France?",
-        options: ["London", "Berlin", "Paris", "Madrid"]
-      },
-      // ... (existing 20 questions remain the same)
-      {
-        question: "What is the closest star to Earth?",
-        options: ["Proxima Centauri", "Alpha Centauri", "The Sun", "Sirius"]
-      },
-      {
-        question: "Which element is essential for photosynthesis?",
-        options: ["Nitrogen", "Carbon Dioxide", "Oxygen", "Hydrogen"]
-      },
-      {
-        question: "Who wrote 'The Theory of Evolution'?",
-        options: ["Charles Darwin", "Isaac Newton", "Albert Einstein", "Gregor Mendel"]
-      },
-      {
-        question: "What is the smallest prime number?",
-        options: ["0", "1", "2", "3"]
-      },
-      {
-        question: "Which continent is the largest?",
-        options: ["North America", "Africa", "Asia", "Europe"]
-      },
-      {
-        question: "What is the value of Pi (π) to two decimal places?",
-        options: ["3.14", "3.16", "3.12", "3.18"]
-      },
-      {
-        question: "Who discovered penicillin?",
-        options: ["Alexander Fleming", "Louis Pasteur", "Robert Koch", "Joseph Lister"]
-      },
-      {
-        question: "What is the longest river in the world?",
-        options: ["Amazon", "Nile", "Yangtze", "Mississippi"]
-      },
-      {
-        question: "Which is the most abundant gas in Earth's atmosphere?",
-        options: ["Oxygen", "Carbon Dioxide", "Nitrogen", "Argon"]
-      },
-      {
-        question: "What is the capital of Australia?",
-        options: ["Sydney", "Melbourne", "Canberra", "Perth"]
-      },
-      {
-        question: "Who painted 'The Starry Night'?",
-        options: ["Van Gogh", "Monet", "Picasso", "Da Vinci"]
-      },
-      {
-        question: "What is the smallest planet in our solar system?",
-        options: ["Mars", "Venus", "Mercury", "Pluto"]
-      },
-      {
-        question: "What is the chemical symbol for silver?",
-        options: ["Si", "Ag", "Au", "Fe"]
-      },
-      {
-        question: "Who invented the light bulb?",
-        options: ["Tesla", "Edison", "Franklin", "Bell"]
-      },
-      {
-        question: "What is the fastest land animal?",
-        options: ["Lion", "Cheetah", "Leopard", "Tiger"]
-      },
-      {
-        question: "Which metal is liquid at room temperature?",
-        options: ["Lead", "Iron", "Mercury", "Copper"]
-      },
-      {
-        question: "What is the human body's largest muscle?",
-        options: ["Biceps", "Gluteus Maximus", "Quadriceps", "Deltoids"]
-      },
-      {
-        question: "Who was the first person to walk on the moon?",
-        options: ["Buzz Aldrin", "Neil Armstrong", "Yuri Gagarin", "John Glenn"]
-      },
-      {
-        question: "What is the boiling point of water in Celsius?",
-        options: ["90°C", "95°C", "100°C", "105°C"]
-      }
+      // {
+      //   question: "What is the capital of Australia?",
+      //   options: ["Sydney", "Melbourne", "Canberra", "Perth"]
+      // },
+      // {
+      //   question: "Who painted 'The Starry Night'?",
+      //   options: ["Van Gogh", "Monet", "Picasso", "Da Vinci"]
+      // },
+      // {
+      //   question: "What is the smallest planet in our solar system?",
+      //   options: ["Mars", "Venus", "Mercury", "Pluto"]
+      // },
+      // {
+      //   question: "What is the chemical symbol for silver?",
+      //   options: ["Si", "Ag", "Au", "Fe"]
+      // },
+      // {
+      //   question: "Who invented the light bulb?",
+      //   options: ["Tesla", "Edison", "Franklin", "Bell"]
+      // },
+      // {
+      //   question: "What is the fastest land animal?",
+      //   options: ["Lion", "Cheetah", "Leopard", "Tiger"]
+      // },
+      // {
+      //   question: "Which metal is liquid at room temperature?",
+      //   options: ["Lead", "Iron", "Mercury", "Copper"]
+      // },
+      // {
+      //   question: "What is the human body's largest muscle?",
+      //   options: ["Biceps", "Gluteus Maximus", "Quadriceps", "Deltoids"]
+      // },
+      // {
+      //   question: "Who was the first person to walk on the moon?",
+      //   options: ["Buzz Aldrin", "Neil Armstrong", "Yuri Gagarin", "John Glenn"]
+      // },
+      // {
+      //   question: "What is the boiling point of water in Celsius?",
+      //   options: ["90°C", "95°C", "100°C", "105°C"]
+      // },
+      // {
+      //   question: "What is the capital of France?",
+      //   options: ["London", "Berlin", "Paris", "Madrid"]
+      // },
+      // // ... (existing 20 questions remain the same)
+      // {
+      //   question: "What is the closest star to Earth?",
+      //   options: ["Proxima Centauri", "Alpha Centauri", "The Sun", "Sirius"]
+      // },
+      // {
+      //   question: "Which element is essential for photosynthesis?",
+      //   options: ["Nitrogen", "Carbon Dioxide", "Oxygen", "Hydrogen"]
+      // },
+      // {
+      //   question: "Who wrote 'The Theory of Evolution'?",
+      //   options: ["Charles Darwin", "Isaac Newton", "Albert Einstein", "Gregor Mendel"]
+      // },
+      // {
+      //   question: "What is the smallest prime number?",
+      //   options: ["0", "1", "2", "3"]
+      // },
+      // {
+      //   question: "Which continent is the largest?",
+      //   options: ["North America", "Africa", "Asia", "Europe"]
+      // },
+      // {
+      //   question: "What is the value of Pi (π) to two decimal places?",
+      //   options: ["3.14", "3.16", "3.12", "3.18"]
+      // },
+      // {
+      //   question: "Who discovered penicillin?",
+      //   options: ["Alexander Fleming", "Louis Pasteur", "Robert Koch", "Joseph Lister"]
+      // },
+      // {
+      //   question: "What is the longest river in the world?",
+      //   options: ["Amazon", "Nile", "Yangtze", "Mississippi"]
+      // },
+      // {
+      //   question: "Which is the most abundant gas in Earth's atmosphere?",
+      //   options: ["Oxygen", "Carbon Dioxide", "Nitrogen", "Argon"]
+      // },
+      // {
+      //   question: "What is the capital of Australia?",
+      //   options: ["Sydney", "Melbourne", "Canberra", "Perth"]
+      // },
+      // {
+      //   question: "Who painted 'The Starry Night'?",
+      //   options: ["Van Gogh", "Monet", "Picasso", "Da Vinci"]
+      // },
+      // {
+      //   question: "What is the smallest planet in our solar system?",
+      //   options: ["Mars", "Venus", "Mercury", "Pluto"]
+      // },
+      // {
+      //   question: "What is the chemical symbol for silver?",
+      //   options: ["Si", "Ag", "Au", "Fe"]
+      // },
+      // {
+      //   question: "Who invented the light bulb?",
+      //   options: ["Tesla", "Edison", "Franklin", "Bell"]
+      // },
+      // {
+      //   question: "What is the fastest land animal?",
+      //   options: ["Lion", "Cheetah", "Leopard", "Tiger"]
+      // },
+      // {
+      //   question: "Which metal is liquid at room temperature?",
+      //   options: ["Lead", "Iron", "Mercury", "Copper"]
+      // },
+      // {
+      //   question: "What is the human body's largest muscle?",
+      //   options: ["Biceps", "Gluteus Maximus", "Quadriceps", "Deltoids"]
+      // },
+      // {
+      //   question: "Who was the first person to walk on the moon?",
+      //   options: ["Buzz Aldrin", "Neil Armstrong", "Yuri Gagarin", "John Glenn"]
+      // },
+      // {
+      //   question: "What is the boiling point of water in Celsius?",
+      //   options: ["90°C", "95°C", "100°C", "105°C"]
+      // }
     ]
+    // const final = {
+    //   "question": "const questions = [       {         question: \"Who is father of Ketan goyal?\",         options: [\"Garvit\", \"chotu\", \"Pauuu\", \"Takla\"]       },       // ... (existing 20 questions remain the same)       {         question: \"What is the closest star to Earth?\",         options: [\"Proxima Centauri\", \"Alpha Centauri\", \"The Sun\", \"Sirius\"]       },       {         question: \"Which element is essential for photosynthesis?\",         options: [\"Nitrogen\", \"Carbon Dioxide\", \"Oxygen\", \"Hydrogen\"]       },       {         question: \"Who wrote 'The Theory of Evolution'?\",         options: [\"Charles Darwin\", \"Isaac Newton\", \"Albert Einstein\", \"Gregor Mendel\"]       },       {         question: \"What is the smallest prime number?\",         options: [\"0\", \"1\", \"2\", \"3\"]       },       {         question: \"Which continent is the largest?\",         options: [\"North America\", \"Africa\", \"Asia\", \"Europe\"]       },       {         question: \"What is the value of Pi (π) to two decimal places?\",         options: [\"3.14\", \"3.16\", \"3.12\", \"3.18\"]       },       {         question: \"Who discovered penicillin?\",         options: [\"Alexander Fleming\", \"Louis Pasteur\", \"Robert Koch\", \"Joseph Lister\"]       },       {         question: \"What is the longest river in the world?\",         options: [\"Amazon\", \"Nile\", \"Yangtze\", \"Mississippi\"]       },       {         question: \"Which is the most abundant gas in Earth's atmosphere?\",         options: [\"Oxygen\", \"Carbon Dioxide\", \"Nitrogen\", \"Argon\"]       },       {         question: \"What is the capital of Australia?\",         options: [\"Sydney\", \"Melbourne\", \"Canberra\", \"Perth\"]       },       {         question: \"Who painted 'The Starry Night'?\",         options: [\"Van Gogh\", \"Monet\", \"Picasso\", \"Da Vinci\"]       },       {         question: \"What is the smallest planet in our solar system?\",         options: [\"Mars\", \"Venus\", \"Mercury\", \"Pluto\"]       },       {         question: \"What is the chemical symbol for silver?\",         options: [\"Si\", \"Ag\", \"Au\", \"Fe\"]       },       {         question: \"Who invented the light bulb?\",         options: [\"Tesla\", \"Edison\", \"Franklin\", \"Bell\"]       },       {         question: \"What is the fastest land animal?\",         options: [\"Lion\", \"Cheetah\", \"Leopard\", \"Tiger\"]       },       {         question: \"Which metal is liquid at room temperature?\",         options: [\"Lead\", \"Iron\", \"Mercury\", \"Copper\"]       },       {         question: \"What is the human body's largest muscle?\",         options: [\"Biceps\", \"Gluteus Maximus\", \"Quadriceps\", \"Deltoids\"]       },       {         question: \"Who was the first person to walk on the moon?\",         options: [\"Buzz Aldrin\", \"Neil Armstrong\", \"Yuri Gagarin\", \"John Glenn\"]       },       {         question: \"What is the boiling point of water in Celsius?\",         options: [\"90°C\", \"95°C\", \"100°C\", \"105°C\"]       },       {         question: \"What is the capital of France?\",         options: [\"London\", \"Berlin\", \"Paris\", \"Madrid\"]       },       // ... (existing 20 questions remain the same)       {         question: \"What is the closest star to Earth?\",         options: [\"Proxima Centauri\", \"Alpha Centauri\", \"The Sun\", \"Sirius\"]       },       {         question: \"Which element is essential for photosynthesis?\",         options: [\"Nitrogen\", \"Carbon Dioxide\", \"Oxygen\", \"Hydrogen\"]       },       {         question: \"Who wrote 'The Theory of Evolution'?\",         options: [\"Charles Darwin\", \"Isaac Newton\", \"Albert Einstein\", \"Gregor Mendel\"]       },       {         question: \"What is the smallest prime number?\",         options: [\"0\", \"1\", \"2\", \"3\"]       },       {         question: \"Which continent is the largest?\",         options: [\"North America\", \"Africa\", \"Asia\", \"Europe\"]       },       {         question: \"What is the value of Pi (π) to two decimal places?\",         options: [\"3.14\", \"3.16\", \"3.12\", \"3.18\"]       },       {         question: \"Who discovered penicillin?\",         options: [\"Alexander Fleming\", \"Louis Pasteur\", \"Robert Koch\", \"Joseph Lister\"]       },       {         question: \"What is the longest river in the world?\",         options: [\"Amazon\", \"Nile\", \"Yangtze\", \"Mississippi\"]       },       {         question: \"Which is the most abundant gas in Earth's atmosphere?\",         options: [\"Oxygen\", \"Carbon Dioxide\", \"Nitrogen\", \"Argon\"]       },       {         question: \"What is the capital of Australia?\",         options: [\"Sydney\", \"Melbourne\", \"Canberra\", \"Perth\"]       },       {         question: \"Who painted 'The Starry Night'?\",         options: [\"Van Gogh\", \"Monet\", \"Picasso\", \"Da Vinci\"]       },       {         question: \"What is the smallest planet in our solar system?\",         options: [\"Mars\", \"Venus\", \"Mercury\", \"Pluto\"]       },       {         question: \"What is the chemical symbol for silver?\",         options: [\"Si\", \"Ag\", \"Au\", \"Fe\"]       },       {         question: \"Who invented the light bulb?\",         options: [\"Tesla\", \"Edison\", \"Franklin\", \"Bell\"]       },       {         question: \"What is the fastest land animal?\",         options: [\"Lion\", \"Cheetah\", \"Leopard\", \"Tiger\"]       },       {         question: \"Which metal is liquid at room temperature?\",         options: [\"Lead\", \"Iron\", \"Mercury\", \"Copper\"]       },       {         question: \"What is the human body's largest muscle?\",         options: [\"Biceps\", \"Gluteus Maximus\", \"Quadriceps\", \"Deltoids\"]       },       {         question: \"Who was the first person to walk on the moon?\",         options: [\"Buzz Aldrin\", \"Neil Armstrong\", \"Yuri Gagarin\", \"John Glenn\"]       },       {         question: \"What is the boiling point of water in Celsius?\",         options: [\"90°C\", \"95°C\", \"100°C\", \"105°C\"]       }     ]"
+    // }
+    // const last = final.question
+    // console.log(typeof last, "i am final")
+    // console.log(typeof final)
+    // const questionsData = final.question
+    // .replace('const questions = ', '') // Remove the variable declaration
+    // .trim();
+
+  // Parse the cleaned JSON string into an array of questions
+  // const questions = JSON.parse(questionsData).map((q: any) => ({
+  //   question: q.question,
+  //   options: q.options
+  // }));
+  // const questions = JSON.parse(final)
+  // console.log(questions)
     const [currentquestion,setcurrentquestion] = useState(0)
     const [answeredquestions, setansweredquestions] = useState<AnsweredQuestion[]>(
       Array.from({ length: questions.length }, (_, index) => ({
@@ -236,6 +256,8 @@
       // Sort answers by question index before submitting
       if (isAllDone() === true){
         console.log("Final Answers:", answeredquestions);
+        window.location.href = "./submitted"
+
 
       }else{
         alert("Do every question")
@@ -246,7 +268,13 @@
     };
     // console.log(answeredquestions)
     
-    
+    // if (submitted == true ){
+    //   return (
+    //     <div className="bg-black text-white flex items-center justify-center  font-[poppins]">
+    //         <h1 className="text-xl font-[poppins] ">Test submitted</h1>
+    //     </div>
+    //   )
+    // }
     return(
       //@ts-ignore
       //@ts-ignore

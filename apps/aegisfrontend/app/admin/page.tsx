@@ -19,7 +19,7 @@ export default function Page(){
   const [setterAadhar, setSetterAadhar] = useState("");
   const [setterDOB, setSetterDOB] = useState("");
 
-  const contractAddress = "0x3c907487574514ca7b7df17de0e3a5f3b56d4d38";
+  const contractAddress = "0x30adbefb04d58f9587338844bfab487e4aaec19c";
   const contractABI = [
 	{
 		"inputs": [],
@@ -77,9 +77,9 @@ export default function Page(){
 		"inputs": [
 			{
 				"indexed": false,
-				"internalType": "uint64",
+				"internalType": "uint256",
 				"name": "startTime",
-				"type": "uint64"
+				"type": "uint256"
 			}
 		],
 		"name": "ExamStartTimeSet",
@@ -90,9 +90,22 @@ export default function Page(){
 		"name": "getExamStartTime",
 		"outputs": [
 			{
-				"internalType": "uint64",
+				"internalType": "uint256",
 				"name": "",
-				"type": "uint64"
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getSettersWorkingTime",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
 			}
 		],
 		"stateMutability": "nonpayable",
@@ -172,9 +185,9 @@ export default function Page(){
 				"type": "string"
 			},
 			{
-				"internalType": "uint64",
+				"internalType": "uint256",
 				"name": "dateOfBirth",
-				"type": "uint64"
+				"type": "uint256"
 			}
 		],
 		"name": "registerSetter",
@@ -374,12 +387,25 @@ export default function Page(){
 	{
 		"inputs": [
 			{
-				"internalType": "uint64",
+				"internalType": "uint256",
 				"name": "_startTime",
-				"type": "uint64"
+				"type": "uint256"
 			}
 		],
 		"name": "setExamStartTime",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_startTime",
+				"type": "uint256"
+			}
+		],
+		"name": "setSetterWorkingTime",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -407,6 +433,19 @@ export default function Page(){
 			}
 		],
 		"name": "SetterRegistered",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "SetterstartTime",
+				"type": "uint256"
+			}
+		],
+		"name": "SettersWorkingTimeSet",
 		"type": "event"
 	},
 	{
@@ -464,6 +503,13 @@ export default function Page(){
 		],
 		"name": "UserInteraction",
 		"type": "event"
+	},
+	{
+		"inputs": [],
+		"name": "withdraw",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
 		"stateMutability": "payable",
@@ -566,12 +612,12 @@ export default function Page(){
 	},
 	{
 		"inputs": [],
-		"name": "OWNER_ROLE",
+		"name": "SetterWorkingTime",
 		"outputs": [
 			{
-				"internalType": "bytes32",
+				"internalType": "uint256",
 				"name": "",
-				"type": "bytes32"
+				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",
@@ -606,9 +652,9 @@ export default function Page(){
 		"name": "startTime",
 		"outputs": [
 			{
-				"internalType": "uint64",
+				"internalType": "uint256",
 				"name": "",
-				"type": "uint64"
+				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",
@@ -659,7 +705,7 @@ export default function Page(){
 		"stateMutability": "view",
 		"type": "function"
 	}
-];
+]
 
   async function connectWallet() {
       //@ts-ignore

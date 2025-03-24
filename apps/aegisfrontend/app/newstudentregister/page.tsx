@@ -1,5 +1,6 @@
 "use client";
 import { ethers } from "ethers";
+import Link from "next/link";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -22,646 +23,692 @@ export default function page() {
     dateofBirth: "1742779250",
   };
 
-  const contractAddress = "0x20a235fe00b1f5e84a0ad454bdc032e43595678d";
+  const contractAddress = "0x30adbefb04d58f9587338844bfab487e4aaec19c";
   const contractABI = [
     {
-      inputs: [],
-      stateMutability: "nonpayable",
-      type: "constructor",
+      "inputs": [],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
     },
     {
-      inputs: [],
-      name: "AccessControlBadConfirmation",
-      type: "error",
+      "inputs": [],
+      "name": "AccessControlBadConfirmation",
+      "type": "error"
     },
     {
-      inputs: [
+      "inputs": [
         {
-          internalType: "address",
-          name: "account",
-          type: "address",
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
         },
         {
-          internalType: "bytes32",
-          name: "neededRole",
-          type: "bytes32",
-        },
+          "internalType": "bytes32",
+          "name": "neededRole",
+          "type": "bytes32"
+        }
       ],
-      name: "AccessControlUnauthorizedAccount",
-      type: "error",
+      "name": "AccessControlUnauthorizedAccount",
+      "type": "error"
     },
     {
-      anonymous: false,
-      inputs: [
+      "anonymous": false,
+      "inputs": [
         {
-          indexed: true,
-          internalType: "address",
-          name: "evaluator",
-          type: "address",
+          "indexed": true,
+          "internalType": "address",
+          "name": "evaluator",
+          "type": "address"
         },
         {
-          indexed: false,
-          internalType: "string",
-          name: "evaluatorGovID",
-          type: "string",
+          "indexed": false,
+          "internalType": "string",
+          "name": "evaluatorGovID",
+          "type": "string"
         },
         {
-          indexed: false,
-          internalType: "uint256",
-          name: "timestamp",
-          type: "uint256",
-        },
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "timestamp",
+          "type": "uint256"
+        }
       ],
-      name: "EvaluatorRegistered",
-      type: "event",
+      "name": "EvaluatorRegistered",
+      "type": "event"
     },
     {
-      anonymous: false,
-      inputs: [
+      "anonymous": false,
+      "inputs": [
         {
-          indexed: false,
-          internalType: "uint64",
-          name: "startTime",
-          type: "uint64",
-        },
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "startTime",
+          "type": "uint256"
+        }
       ],
-      name: "ExamStartTimeSet",
-      type: "event",
+      "name": "ExamStartTimeSet",
+      "type": "event"
     },
     {
-      inputs: [],
-      name: "getExamStartTime",
-      outputs: [
+      "inputs": [],
+      "name": "getExamStartTime",
+      "outputs": [
         {
-          internalType: "uint64",
-          name: "",
-          type: "uint64",
-        },
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
       ],
-      stateMutability: "nonpayable",
-      type: "function",
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      inputs: [
+      "inputs": [],
+      "name": "getSettersWorkingTime",
+      "outputs": [
         {
-          internalType: "bytes32",
-          name: "role",
-          type: "bytes32",
-        },
-        {
-          internalType: "address",
-          name: "account",
-          type: "address",
-        },
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
       ],
-      name: "grantRole",
-      outputs: [],
-      stateMutability: "nonpayable",
-      type: "function",
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      inputs: [
+      "inputs": [
         {
-          internalType: "address",
-          name: "evaluator",
-          type: "address",
+          "internalType": "bytes32",
+          "name": "role",
+          "type": "bytes32"
         },
         {
-          internalType: "string",
-          name: "name",
-          type: "string",
-        },
-        {
-          internalType: "string",
-          name: "govID",
-          type: "string",
-        },
-        {
-          internalType: "string",
-          name: "aadharNumber",
-          type: "string",
-        },
-        {
-          internalType: "uint64",
-          name: "dateOfBirth",
-          type: "uint64",
-        },
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        }
       ],
-      name: "registerEvaluator",
-      outputs: [],
-      stateMutability: "nonpayable",
-      type: "function",
+      "name": "grantRole",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      inputs: [
+      "inputs": [
         {
-          internalType: "address",
-          name: "setter",
-          type: "address",
+          "internalType": "address",
+          "name": "evaluator",
+          "type": "address"
         },
         {
-          internalType: "string",
-          name: "name",
-          type: "string",
+          "internalType": "string",
+          "name": "name",
+          "type": "string"
         },
         {
-          internalType: "string",
-          name: "govID",
-          type: "string",
+          "internalType": "string",
+          "name": "govID",
+          "type": "string"
         },
         {
-          internalType: "string",
-          name: "aadharNumber",
-          type: "string",
+          "internalType": "string",
+          "name": "aadharNumber",
+          "type": "string"
         },
         {
-          internalType: "uint64",
-          name: "dateOfBirth",
-          type: "uint64",
-        },
+          "internalType": "uint64",
+          "name": "dateOfBirth",
+          "type": "uint64"
+        }
       ],
-      name: "registerSetter",
-      outputs: [],
-      stateMutability: "nonpayable",
-      type: "function",
+      "name": "registerEvaluator",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      inputs: [
+      "inputs": [
         {
-          internalType: "address",
-          name: "student",
-          type: "address",
+          "internalType": "address",
+          "name": "setter",
+          "type": "address"
         },
         {
-          internalType: "string",
-          name: "name",
-          type: "string",
+          "internalType": "string",
+          "name": "name",
+          "type": "string"
         },
         {
-          internalType: "string",
-          name: "studentID",
-          type: "string",
+          "internalType": "string",
+          "name": "govID",
+          "type": "string"
         },
         {
-          internalType: "string",
-          name: "aadharNumber",
-          type: "string",
+          "internalType": "string",
+          "name": "aadharNumber",
+          "type": "string"
         },
         {
-          internalType: "uint256",
-          name: "dateOfBirth",
-          type: "uint256",
-        },
+          "internalType": "uint256",
+          "name": "dateOfBirth",
+          "type": "uint256"
+        }
       ],
-      name: "registerStudents",
-      outputs: [
-        {
-          internalType: "uint32",
-          name: "",
-          type: "uint32",
-        },
-      ],
-      stateMutability: "payable",
-      type: "function",
+      "name": "registerSetter",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      inputs: [
+      "inputs": [
         {
-          internalType: "bytes32",
-          name: "role",
-          type: "bytes32",
+          "internalType": "address",
+          "name": "student",
+          "type": "address"
         },
         {
-          internalType: "address",
-          name: "callerConfirmation",
-          type: "address",
+          "internalType": "string",
+          "name": "name",
+          "type": "string"
         },
+        {
+          "internalType": "string",
+          "name": "studentID",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "aadharNumber",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "dateOfBirth",
+          "type": "uint256"
+        }
       ],
-      name: "renounceRole",
-      outputs: [],
-      stateMutability: "nonpayable",
-      type: "function",
+      "name": "registerStudents",
+      "outputs": [
+        {
+          "internalType": "uint32",
+          "name": "",
+          "type": "uint32"
+        }
+      ],
+      "stateMutability": "payable",
+      "type": "function"
     },
     {
-      inputs: [
+      "inputs": [
         {
-          internalType: "address",
-          name: "evaluator",
-          type: "address",
+          "internalType": "bytes32",
+          "name": "role",
+          "type": "bytes32"
         },
+        {
+          "internalType": "address",
+          "name": "callerConfirmation",
+          "type": "address"
+        }
       ],
-      name: "revokeEvaluator",
-      outputs: [],
-      stateMutability: "nonpayable",
-      type: "function",
+      "name": "renounceRole",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      inputs: [
+      "inputs": [
         {
-          internalType: "bytes32",
-          name: "role",
-          type: "bytes32",
-        },
-        {
-          internalType: "address",
-          name: "account",
-          type: "address",
-        },
+          "internalType": "address",
+          "name": "evaluator",
+          "type": "address"
+        }
       ],
-      name: "revokeRole",
-      outputs: [],
-      stateMutability: "nonpayable",
-      type: "function",
+      "name": "revokeEvaluator",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      inputs: [
+      "inputs": [
         {
-          internalType: "address",
-          name: "setter",
-          type: "address",
+          "internalType": "bytes32",
+          "name": "role",
+          "type": "bytes32"
         },
+        {
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        }
       ],
-      name: "revokeSetter",
-      outputs: [],
-      stateMutability: "nonpayable",
-      type: "function",
+      "name": "revokeRole",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      inputs: [
+      "inputs": [
         {
-          internalType: "address",
-          name: "student",
-          type: "address",
-        },
+          "internalType": "address",
+          "name": "setter",
+          "type": "address"
+        }
       ],
-      name: "revokeStudent",
-      outputs: [],
-      stateMutability: "nonpayable",
-      type: "function",
+      "name": "revokeSetter",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      anonymous: false,
-      inputs: [
+      "inputs": [
         {
-          indexed: true,
-          internalType: "bytes32",
-          name: "role",
-          type: "bytes32",
-        },
-        {
-          indexed: true,
-          internalType: "bytes32",
-          name: "previousAdminRole",
-          type: "bytes32",
-        },
-        {
-          indexed: true,
-          internalType: "bytes32",
-          name: "newAdminRole",
-          type: "bytes32",
-        },
+          "internalType": "address",
+          "name": "student",
+          "type": "address"
+        }
       ],
-      name: "RoleAdminChanged",
-      type: "event",
+      "name": "revokeStudent",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      anonymous: false,
-      inputs: [
+      "anonymous": false,
+      "inputs": [
         {
-          indexed: true,
-          internalType: "bytes32",
-          name: "role",
-          type: "bytes32",
+          "indexed": true,
+          "internalType": "bytes32",
+          "name": "role",
+          "type": "bytes32"
         },
         {
-          indexed: true,
-          internalType: "address",
-          name: "account",
-          type: "address",
+          "indexed": true,
+          "internalType": "bytes32",
+          "name": "previousAdminRole",
+          "type": "bytes32"
         },
         {
-          indexed: true,
-          internalType: "address",
-          name: "sender",
-          type: "address",
-        },
+          "indexed": true,
+          "internalType": "bytes32",
+          "name": "newAdminRole",
+          "type": "bytes32"
+        }
       ],
-      name: "RoleGranted",
-      type: "event",
+      "name": "RoleAdminChanged",
+      "type": "event"
     },
     {
-      anonymous: false,
-      inputs: [
+      "anonymous": false,
+      "inputs": [
         {
-          indexed: true,
-          internalType: "bytes32",
-          name: "role",
-          type: "bytes32",
+          "indexed": true,
+          "internalType": "bytes32",
+          "name": "role",
+          "type": "bytes32"
         },
         {
-          indexed: true,
-          internalType: "address",
-          name: "account",
-          type: "address",
+          "indexed": true,
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
         },
         {
-          indexed: true,
-          internalType: "address",
-          name: "sender",
-          type: "address",
-        },
+          "indexed": true,
+          "internalType": "address",
+          "name": "sender",
+          "type": "address"
+        }
       ],
-      name: "RoleRevoked",
-      type: "event",
+      "name": "RoleGranted",
+      "type": "event"
     },
     {
-      inputs: [
+      "anonymous": false,
+      "inputs": [
         {
-          internalType: "uint64",
-          name: "_startTime",
-          type: "uint64",
+          "indexed": true,
+          "internalType": "bytes32",
+          "name": "role",
+          "type": "bytes32"
         },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "sender",
+          "type": "address"
+        }
       ],
-      name: "setExamStartTime",
-      outputs: [],
-      stateMutability: "nonpayable",
-      type: "function",
+      "name": "RoleRevoked",
+      "type": "event"
     },
     {
-      anonymous: false,
-      inputs: [
+      "inputs": [
         {
-          indexed: true,
-          internalType: "address",
-          name: "setter",
-          type: "address",
-        },
-        {
-          indexed: false,
-          internalType: "string",
-          name: "setterGovID",
-          type: "string",
-        },
-        {
-          indexed: false,
-          internalType: "uint256",
-          name: "timestamp",
-          type: "uint256",
-        },
+          "internalType": "uint256",
+          "name": "_startTime",
+          "type": "uint256"
+        }
       ],
-      name: "SetterRegistered",
-      type: "event",
+      "name": "setExamStartTime",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      anonymous: false,
-      inputs: [
+      "inputs": [
         {
-          indexed: true,
-          internalType: "address",
-          name: "student",
-          type: "address",
-        },
-        {
-          indexed: false,
-          internalType: "string",
-          name: "studentID",
-          type: "string",
-        },
-        {
-          indexed: false,
-          internalType: "uint256",
-          name: "timestamp",
-          type: "uint256",
-        },
+          "internalType": "uint256",
+          "name": "_startTime",
+          "type": "uint256"
+        }
       ],
-      name: "StudentRegistered",
-      type: "event",
+      "name": "setSetterWorkingTime",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      anonymous: false,
-      inputs: [
+      "anonymous": false,
+      "inputs": [
         {
-          indexed: false,
-          internalType: "address",
-          name: "user",
-          type: "address",
+          "indexed": true,
+          "internalType": "address",
+          "name": "setter",
+          "type": "address"
         },
         {
-          indexed: false,
-          internalType: "bytes32",
-          name: "role",
-          type: "bytes32",
+          "indexed": false,
+          "internalType": "string",
+          "name": "setterGovID",
+          "type": "string"
         },
         {
-          indexed: false,
-          internalType: "string",
-          name: "action",
-          type: "string",
-        },
-        {
-          indexed: false,
-          internalType: "uint256",
-          name: "timestamp",
-          type: "uint256",
-        },
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "timestamp",
+          "type": "uint256"
+        }
       ],
-      name: "UserInteraction",
-      type: "event",
+      "name": "SetterRegistered",
+      "type": "event"
     },
     {
-      stateMutability: "payable",
-      type: "receive",
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "SetterstartTime",
+          "type": "uint256"
+        }
+      ],
+      "name": "SettersWorkingTimeSet",
+      "type": "event"
     },
     {
-      inputs: [],
-      name: "DEFAULT_ADMIN_ROLE",
-      outputs: [
+      "anonymous": false,
+      "inputs": [
         {
-          internalType: "bytes32",
-          name: "",
-          type: "bytes32",
+          "indexed": true,
+          "internalType": "address",
+          "name": "student",
+          "type": "address"
         },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "studentID",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "timestamp",
+          "type": "uint256"
+        }
       ],
-      stateMutability: "view",
-      type: "function",
+      "name": "StudentRegistered",
+      "type": "event"
     },
     {
-      inputs: [],
-      name: "EXAM_EVALUATOR_ROLE",
-      outputs: [
+      "anonymous": false,
+      "inputs": [
         {
-          internalType: "bytes32",
-          name: "",
-          type: "bytes32",
+          "indexed": false,
+          "internalType": "address",
+          "name": "user",
+          "type": "address"
         },
+        {
+          "indexed": false,
+          "internalType": "bytes32",
+          "name": "role",
+          "type": "bytes32"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "action",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "timestamp",
+          "type": "uint256"
+        }
       ],
-      stateMutability: "view",
-      type: "function",
+      "name": "UserInteraction",
+      "type": "event"
     },
     {
-      inputs: [],
-      name: "EXAM_SETTER_ROLE",
-      outputs: [
-        {
-          internalType: "bytes32",
-          name: "",
-          type: "bytes32",
-        },
-      ],
-      stateMutability: "view",
-      type: "function",
+      "inputs": [],
+      "name": "withdraw",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      inputs: [
-        {
-          internalType: "bytes32",
-          name: "role",
-          type: "bytes32",
-        },
-      ],
-      name: "getRoleAdmin",
-      outputs: [
-        {
-          internalType: "bytes32",
-          name: "",
-          type: "bytes32",
-        },
-      ],
-      stateMutability: "view",
-      type: "function",
+      "stateMutability": "payable",
+      "type": "receive"
     },
     {
-      inputs: [
+      "inputs": [],
+      "name": "DEFAULT_ADMIN_ROLE",
+      "outputs": [
         {
-          internalType: "bytes32",
-          name: "role",
-          type: "bytes32",
-        },
-        {
-          internalType: "address",
-          name: "account",
-          type: "address",
-        },
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
       ],
-      name: "hasRole",
-      outputs: [
-        {
-          internalType: "bool",
-          name: "",
-          type: "bool",
-        },
-      ],
-      stateMutability: "view",
-      type: "function",
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      inputs: [],
-      name: "owner",
-      outputs: [
+      "inputs": [],
+      "name": "EXAM_EVALUATOR_ROLE",
+      "outputs": [
         {
-          internalType: "address payable",
-          name: "",
-          type: "address",
-        },
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
       ],
-      stateMutability: "view",
-      type: "function",
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      inputs: [],
-      name: "OWNER_ROLE",
-      outputs: [
+      "inputs": [],
+      "name": "EXAM_SETTER_ROLE",
+      "outputs": [
         {
-          internalType: "bytes32",
-          name: "",
-          type: "bytes32",
-        },
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
       ],
-      stateMutability: "view",
-      type: "function",
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      inputs: [
+      "inputs": [
         {
-          internalType: "address",
-          name: "user",
-          type: "address",
-        },
+          "internalType": "bytes32",
+          "name": "role",
+          "type": "bytes32"
+        }
       ],
-      name: "showUserData",
-      outputs: [
+      "name": "getRoleAdmin",
+      "outputs": [
         {
-          internalType: "string",
-          name: "name",
-          type: "string",
-        },
-        {
-          internalType: "string",
-          name: "role",
-          type: "string",
-        },
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
       ],
-      stateMutability: "view",
-      type: "function",
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      inputs: [],
-      name: "startTime",
-      outputs: [
+      "inputs": [
         {
-          internalType: "uint64",
-          name: "",
-          type: "uint64",
+          "internalType": "bytes32",
+          "name": "role",
+          "type": "bytes32"
         },
+        {
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        }
       ],
-      stateMutability: "view",
-      type: "function",
+      "name": "hasRole",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      inputs: [],
-      name: "STUDENT_REGISTRATION_FEE",
-      outputs: [
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
         {
-          internalType: "uint256",
-          name: "",
-          type: "uint256",
-        },
+          "internalType": "address payable",
+          "name": "",
+          "type": "address"
+        }
       ],
-      stateMutability: "view",
-      type: "function",
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      inputs: [],
-      name: "STUDENT_ROLE",
-      outputs: [
+      "inputs": [],
+      "name": "SetterWorkingTime",
+      "outputs": [
         {
-          internalType: "bytes32",
-          name: "",
-          type: "bytes32",
-        },
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
       ],
-      stateMutability: "view",
-      type: "function",
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      inputs: [
+      "inputs": [
         {
-          internalType: "bytes4",
-          name: "interfaceId",
-          type: "bytes4",
-        },
+          "internalType": "address",
+          "name": "user",
+          "type": "address"
+        }
       ],
-      name: "supportsInterface",
-      outputs: [
+      "name": "showUserData",
+      "outputs": [
         {
-          internalType: "bool",
-          name: "",
-          type: "bool",
+          "internalType": "string",
+          "name": "name",
+          "type": "string"
         },
+        {
+          "internalType": "string",
+          "name": "role",
+          "type": "string"
+        }
       ],
-      stateMutability: "view",
-      type: "function",
+      "stateMutability": "view",
+      "type": "function"
     },
+    {
+      "inputs": [],
+      "name": "startTime",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "STUDENT_REGISTRATION_FEE",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "STUDENT_ROLE",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes4",
+          "name": "interfaceId",
+          "type": "bytes4"
+        }
+      ],
+      "name": "supportsInterface",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
   ];
   const StudentRegistrationFees = ethers.parseEther("0.00025");
       //@ts-ignore
@@ -743,9 +790,9 @@ export default function page() {
       console.error("Transaction failed: ", err);
       //@ts-ignore
 
-      handlesetStatus(`Error: ${err.message}`);
+      handlesetStatus(`Student Already Registered`);
     }
-  };
+};
       //@ts-ignore
 
   const onSubmit = (data) => {
@@ -762,14 +809,11 @@ export default function page() {
     <nav className="w-full bg-black/80 backdrop-blur-md py-4 px-6 flex items-center justify-between border-b border-purple-500/20">
       {/* Logo */}
       <div className="text-xl font-bold text-white font-[boldonse]">
+      <Link href="./link">
         Aegis
+      </Link>
       </div>
-      <div className="hidden md:flex items-center space-x-6">
-        <a href="#" className="text-white font-poppins hover:text-purple-400 transition-colors duration-300">About</a>
-        <a href="#" className="text-white font-poppins hover:text-purple-400 transition-colors duration-300">My Tests</a>
-        <a href="#" className="text-white font-poppins hover:text-purple-400 transition-colors duration-300">Tokenomics</a>
-        <a href="#" className="text-white font-poppins hover:text-purple-400 transition-colors duration-300">Airdrop</a>
-      </div>
+      
       <div className="md:hidden">
         <button className="text-white focus:outline-none">
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

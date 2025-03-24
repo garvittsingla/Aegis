@@ -14,7 +14,7 @@ export default function Navbar(){
             </div>
             <div className="right"> 
                 <div className=" ">
-                    <StarBorder className="" >Conncet wallet</StarBorder >
+                    {/* <StarBorder className="" >Conncet wallet</StarBorder > */}
                 </div> 
              </div>
         </nav>
