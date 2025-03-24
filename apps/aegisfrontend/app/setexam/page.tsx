@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { ethers } from "ethers";
-import TeacherUplaod from "../_components/TeacherUpload";
+// import TeacherUplaod from "../_components/TeacherUpload";
 
 
 export default function Page() {
@@ -476,7 +476,7 @@ export default function Page() {
             {/* <p className="font-semibold text-xl">Wallet Connected:  {window.ethereum.selectedAddress}</p> */}
 
             </div>
-            <TeacherUplaod contract = {contract}/>
+            {/* <TeacherUplaod contract = {contract}/> */}
           </div>
         )}
       </div>

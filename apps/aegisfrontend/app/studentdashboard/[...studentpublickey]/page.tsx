@@ -1,21 +1,237 @@
 'use client'
-import generatePDF from 'react-to-pdf';
 import { Download, PanelRightDashed } from 'lucide-react';
 import { useParams } from 'next/navigation'
-import { useRef } from 'react';
-import { saveAs } from 'file-saver';
-import { pdf } from '@react-pdf/renderer';
+import { useRef, useEffect, useState } from 'react';
+import { jsPDF } from 'jspdf';
 
 export default function Page(){
     const targetRef = useRef(null);
-    const params = useParams<{ studentpublickey: string;  }>()
+    const params = useParams<{ studentpublickey: string; }>()
+    const [isClient, setIsClient] = useState(false);
 
+    useEffect(() => {
+        setIsClient(true);
+    }, []);
 
     const downloadPdf = async () => {
-        const fileName = 'test.pdf';
-        const blob = await pdf(targetRef).toBlob();
-        saveAs(blob, fileName);
-      };
+        if (!targetRef.current || !isClient) return;
+        
+        try {
+            // Get the target element
+            const element = targetRef.current as HTMLElement;
+            
+            // Create a temporary iframe to render content without oklch colors
+            const iframe = document.createElement('iframe');
+            iframe.style.width = '800px';
+            iframe.style.height = '600px';
+            iframe.style.position = 'absolute';
+            iframe.style.top = '-9999px';
+            iframe.style.left = '-9999px';
+            
+            document.body.appendChild(iframe);
+            
+            // Create a simple HTML structure without oklch colors
+            const iframeDoc = iframe.contentDocument || iframe.contentWindow?.document;
+            if (!iframeDoc) {
+                throw new Error('Could not create iframe document');
+            }
+            
+            // Copy the element's content into the iframe with a simple style
+            const clonedContent = element.cloneNode(true) as HTMLElement;
+            
+            // Override all styles with simple ones
+            const simpleStyleSheet = iframeDoc.createElement('style');
+            simpleStyleSheet.textContent = `
+                body { 
+                    background-color: black; 
+                    color: white; 
+                    font-family: Arial, sans-serif; 
+                }
+                .card {
+                    width: 300px;
+                    background-color: rgba(20, 20, 20, 0.8);
+                    border: 1px solid rgba(100, 100, 100, 0.3);
+                    border-radius: 10px;
+                    padding: 20px;
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+                }
+                .header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 20px;
+                }
+                .title {
+                    font-size: 18px;
+                    font-weight: bold;
+                    color: #4ade80;
+                }
+                .avatar {
+                    width: 30px;
+                    height: 30px;
+                    background-color: #4ade80;
+                    border-radius: 50%;
+                    opacity: 0.7;
+                }
+                .field {
+                    margin-bottom: 15px;
+                }
+                .label {
+                    font-size: 12px;
+                    color: #9ca3af;
+                }
+                .value {
+                    font-size: 14px;
+                    font-weight: 500;
+                }
+                .pk {
+                    font-family: monospace;
+                    font-size: 12px;
+                    word-break: break-all;
+                }
+            `;
+            
+            iframeDoc.head.appendChild(simpleStyleSheet);
+            
+            // Create content structure manually (no oklch colors)
+            const data = {
+                name: element.querySelector('[class*="font-medium"]')?.textContent || 'Garvit Singla',
+                rollNo: dummyData.Rollno,
+                aadharNo: dummyData.Adharno,
+                publicKey: dummyData.publickey
+            };
+            
+            const contentHTML = `
+                <div class="card">
+                    <div class="header">
+                        <div class="title">Student Admit Card</div>
+                        <div class="avatar"></div>
+                    </div>
+                    <div class="content">
+                        <div class="field">
+                            <div class="label">Name</div>
+                            <div class="value">${data.name}</div>
+                        </div>
+                        <div class="field">
+                            <div class="label">Roll No</div>
+                            <div class="value">${data.rollNo}</div>
+                        </div>
+                        <div class="field">
+                            <div class="label">Aadhar No</div>
+                            <div class="value">${data.aadharNo}</div>
+                        </div>
+                        <div class="field">
+                            <div class="label">Public Key</div>
+                            <div class="pk">${data.publicKey}</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            iframeDoc.body.innerHTML = contentHTML;
+            
+            // Wait for iframe content to be rendered
+            setTimeout(async () => {
+                try {
+                    // Create a canvas from the iframe content
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    
+                    if (!ctx) {
+                        throw new Error('Could not get canvas context');
+                    }
+                    
+                    const contentElement = iframeDoc.querySelector('.card');
+                    if (!contentElement) {
+                        throw new Error('Could not find content element');
+                    }
+                    
+                    // Set canvas dimensions
+                    canvas.width = 320;
+                    canvas.height = 420;
+                    
+                    // Fill background
+                    ctx.fillStyle = '#000000';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    
+                    // Convert the iframe document content to a data URL
+                    ctx.fillStyle = 'rgba(20, 20, 20, 0.8)';
+                    ctx.fillRect(10, 10, 300, 400);
+                    ctx.fillStyle = '#4ade80';
+                    ctx.font = 'bold 18px Arial';
+                    ctx.fillText('Student Admit Card', 20, 40);
+                    
+                    // Draw circle
+                    ctx.beginPath();
+                    ctx.arc(280, 30, 15, 0, 2 * Math.PI);
+                    ctx.fillStyle = '#4ade80';
+                    ctx.globalAlpha = 0.7;
+                    ctx.fill();
+                    ctx.globalAlpha = 1.0;
+                    
+                    // Draw content
+                    ctx.fillStyle = '#9ca3af';
+                    ctx.font = '12px Arial';
+                    ctx.fillText('Name', 20, 80);
+                    ctx.fillText('Roll No', 20, 130);
+                    ctx.fillText('Aadhar No', 20, 180);
+                    ctx.fillText('Public Key', 20, 230);
+                    
+                    ctx.fillStyle = '#ffffff';
+                    ctx.font = '14px Arial';
+                    ctx.fillText(data.name, 20, 100);
+                    ctx.fillText(data.rollNo, 20, 150);
+                    ctx.fillText(data.aadharNo, 20, 200);
+                    
+                    // Handle public key (wrap text)
+                    const publicKey = data.publicKey;
+                    const maxWidth = 260;
+                    let startY = 250;
+                    ctx.font = '12px monospace';
+                    
+                    if (publicKey.length > 30) {
+                        for (let i = 0; i < publicKey.length; i += 30) {
+                            ctx.fillText(publicKey.substring(i, i + 30), 20, startY);
+                            startY += 20;
+                        }
+                    } else {
+                        ctx.fillText(publicKey, 20, startY);
+                    }
+                    
+                    // Convert canvas to image
+                    const imgData = canvas.toDataURL('image/png');
+                    
+                    // Create PDF
+                    const pdf = new jsPDF({
+                        orientation: 'portrait',
+                        unit: 'mm',
+                        format: 'a4'
+                    });
+                    
+                    const imgWidth = 180; // A4 width with margins
+                    const pageHeight = 297; // A4 height in mm
+                    const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                    
+                    // Add image to PDF with some margin
+                    pdf.addImage(imgData, 'PNG', 15, 15, imgWidth, imgHeight);
+                    pdf.save('student-admit-card.pdf');
+                    
+                    // Clean up
+                    document.body.removeChild(iframe);
+                    
+                } catch (innerError) {
+                    console.error('Error in canvas rendering:', innerError);
+                    alert('Failed to generate PDF. Please try again.');
+                    document.body.removeChild(iframe);
+                }
+            }, 500);
+            
+        } catch (error) {
+            console.error('Error generating PDF:', error);
+            alert('Failed to generate PDF. Please try again.');
+        }
+    };
+    
     const dummyData = {
         Studentname:"Garvit Singla",
         Rollno:"2410991145",
