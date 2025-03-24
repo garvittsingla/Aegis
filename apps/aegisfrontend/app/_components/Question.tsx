@@ -27,7 +27,7 @@ export default function Question({
     })
   
     return (
-      <div className={`h-full w-3/4 flex px-5 py-3 flex-col bg-[#171717]/60 rounded-xl ${className}`}>
+      <div className={`h-full w-3/4 flex px-5 py-3 flex-col bg-[#171717]/60 rounded-xl ${className} bg-[linear-gradient(rgba(255,255,255,0.01)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.01)_1px,transparent_1px)] bg-[length:20px_20px]`}>
         <div className="h-2/8 w-[80%] mx-auto overflow-y-auto items-center border-white/40 text-lg flex my-4 border-b">
           <div className="flex flex-col gap-2">
             <div className="text-[#B0B0B0] text-sm font-md">Question.{questionnumber + 1}</div>

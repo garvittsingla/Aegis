@@ -13,15 +13,15 @@ export default function Home() {
       <div className="min-h-[200vh]">
         <nav className="flex justify-between items-center p-6">
           <div className="flex items-center gap-2">
-            <span className="text-2xl font-bold font-[]">AEGIS</span>
+            <span className="text-xl font-bold font-[boldonse]">AEGIS</span>
           </div>
           <div className="flex items-center gap-6">
             <Link href="/about" className="text-sm hover:text-gray-300">About</Link>
             <Link href="/my-tests" className="text-sm hover:text-gray-300">My Tests</Link>
             <Link href="/tokenomics" className="text-sm hover:text-gray-300">Tokenomics</Link>
             <Link href="/airdrop" className="text-sm hover:text-gray-300">Airdrop</Link>
-            <button className="px-4 py-2 bg-purple-600 rounded-full text-sm font-semibold hover:bg-purple-700">
-              Connect Wallet
+            <button  className="px-4 py-3 bg-purple-600 rounded-full text-sm font-semibold hover:bg-purple-700">
+              <Link href="./newstudentregister">Register</Link>
             </button>
           </div>
         </nav>
@@ -58,7 +58,7 @@ export default function Home() {
               <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-full"></div>
               <div>
                 <p className="text-sm font-semibold">Arbitrum orbit</p>
-                <p className="text-xs text-gray-300">Trusted by 10K+ users</p>
+              <p className="text-xs text-gray-300">Trusted by 10K+ users</p>
               </div>
             </div>
           </div>
@@ -94,7 +94,6 @@ export default function Home() {
           <Flowing />
 
           </div>
-      <div className="bg-red-900 h-screen w-full"></div>
         </motion.div>
       </div>
     </div>
