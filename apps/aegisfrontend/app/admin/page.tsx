@@ -4,10 +4,11 @@ import { ethers } from "ethers";
 
 export default function Page(){
     const [isconnected, setIsConnected] = useState(false);
-  const [contract, setContract] = useState(null);
+  const [contract, setContract] = useState<ethers.Contract | null>(null);
 
   // Status messages
   const [message, setMessage] = useState("");
+  const [msgSetter, setmsgSetter] =useState("");
 
   // Exam start time state
   const [examStartTime, setExamStartTime] = useState("");
@@ -17,7 +18,6 @@ export default function Page(){
   const [setterName, setSetterName] = useState("");
   const [setterGovID, setSetterGovID] = useState("");
   const [setterAadhar, setSetterAadhar] = useState("");
-  const [setterDOB, setSetterDOB] = useState("");
 
   const contractAddress = "0x30adbefb04d58f9587338844bfab487e4aaec19c";
   const contractABI = [
@@ -752,6 +752,10 @@ export default function Page(){
 
       const tx = await contract.setExamStartTime(timestamp);
       await tx.wait();
+
+	  contract.on("ExamStartTimeSet", (startTime)=>{
+		setMessage(`Exam start time has been set ${examStartTime}`);
+	  })
     } catch (err) {
       setMessage("Error setting exam start time");
       //@ts-ignore
@@ -768,26 +772,30 @@ export default function Page(){
 
     try {
       setMessage("Registering exam setter...");
-      if (!setterName || !setterGovID || !setterAadhar || !setterDOB) {
+      if (!setterName || !setterGovID || !setterAadhar) {
         setMessage("Please fill all setter fields");
 		
         return;
       }
 
-      const dobTimestamp = Math.floor(new Date(setterDOB).getTime() / 1000);
-	  console.log(typeof dobTimestamp);
+    //   const dobTimestamp = Math.floor(new Date(setterDOB).getTime() / 1000);
+	//   console.log(typeof dobTimestamp);
       //@ts-ignore
 
-      const tx = await contract.registerSetter(
-        setterAddress,
-        setterName,
-        setterGovID,
-        setterAadhar,
-        dobTimestamp
-      );
-      await tx.await();
+	  const tx = await contract.registerSetter(
+		setterAddress,
+		setterName,
+		setterGovID,
+		setterAadhar,
+	  );
+	  await tx.wait();
+
+	  contract.on("SetterRegistered", (_setterAddress: string, _setterGovID: string, _timestamps: number) => {
+		setmsgSetter(`Setter ${setterName} successfully registered!`);
+	  });
+
     } catch (err) {
-      setMessage("Please fill all setter fields");
+      setMessage("Unknown error occured");
       //@ts-ignore
 
       console.log(err.message);
@@ -837,6 +845,7 @@ export default function Page(){
             <svg className="ml-2 w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#A855F7" strokeWidth="2" style={{ filter: "drop-shadow(0 0 6px #A855F7)" }}>
               <path d="M12 2v4m0 12v4m-4-8H4m16 0h-4m-1.66-5.66l2.83-2.83m-2.83 12.49l2.83-2.83M6.83 6.83l-2.83 2.83m2.83 12.49l-2.83-2.83" />
             </svg>
+			<span>{message}</span>
           </h2>
           <input
             type="datetime-local"
@@ -859,6 +868,7 @@ export default function Page(){
             <svg className="ml-2 w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#00FF00" strokeWidth="2" style={{ filter: "drop-shadow(0 0 6px #00FF00)" }}>
               <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0m4 0h10m-5-5v10" />
             </svg>
+			<span>{msgSetter}</span>
           </h2>
           <input
             type="text"
@@ -886,13 +896,6 @@ export default function Page(){
             placeholder="Enter Aadhar Number"
             value={setterAadhar}
             onChange={(e) => setSetterAadhar(e.target.value)}
-            className="w-full py-2 px-4 mb-4 bg-gray-800/20 text-white border border-purple-500/30 rounded-lg focus:outline-none focus:border-purple-400 placeholder-gray-500 font-poppins transition-all duration-300"
-          />
-          <input
-            type="date"
-            placeholder="Date of Birth"
-            value={setterDOB}
-            onChange={(e) => setSetterDOB(e.target.value)}
             className="w-full py-2 px-4 mb-4 bg-gray-800/20 text-white border border-purple-500/30 rounded-lg focus:outline-none focus:border-purple-400 placeholder-gray-500 font-poppins transition-all duration-300"
           />
           <button
