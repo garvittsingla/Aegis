@@ -774,6 +774,7 @@ export default function Page(){
       }
 
       const dobTimestamp = Math.floor(new Date(setterDOB).getTime() / 1000);
+	  console.log(typeof dobTimestamp);
       //@ts-ignore
 
       const tx = await contract.registerSetter(
