@@ -770,6 +770,7 @@ export default function Page(){
       setMessage("Registering exam setter...");
       if (!setterName || !setterGovID || !setterAadhar || !setterDOB) {
         setMessage("Please fill all setter fields");
+		
         return;
       }
 
