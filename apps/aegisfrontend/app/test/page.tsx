@@ -2,7 +2,7 @@
   import Navbar from "../_components/Navbar";
   import Question from "../_components/Question";
   import Questionselector from "../_components/Questionselector";
-  import { useState } from "react";
+  import { useState,useEffect  } from "react";
 
   interface AnsweredQuestion {
     questionIndex: number;
@@ -183,6 +183,19 @@
         selectedOption: ""
       }))
     );
+
+
+
+  const [isMounted, setIsMounted] = useState(false)
+
+  useEffect(() => {
+    setIsMounted(true)
+    
+  }, [])
+
+  if (!isMounted) return null
+  
+
 
     
 

@@ -24,7 +24,7 @@ export default function Question({
     };
  
 
-    window.addEventListener("keydown",(e)=>{
+    document.addEventListener("keydown",(e)=>{
         e.preventDefault()
     })
   
