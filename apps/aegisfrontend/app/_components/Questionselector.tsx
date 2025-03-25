@@ -1,8 +1,8 @@
 export default function Questionselector({setcurrentquestion,questionlength,currentquestion,answeredquestions}:{
-    setcurrentquestion:any,
+    setcurrentquestion:(index: number) => void,
     questionlength:number,
     currentquestion:number,
-    answeredquestions:object[]
+    answeredquestions:{ questionIndex: number, selectedOption: string }[]
 })
 
     
@@ -11,9 +11,7 @@ export default function Questionselector({setcurrentquestion,questionlength,curr
     // console.log(questionlength)
 
     const isanswered = (index:number):boolean =>{
-      //@ts-ignore
-
-      if (answeredquestions[index].selectedOption == ""){
+      if (answeredquestions[index].selectedOption === ""){
         return false
       }
       
@@ -25,9 +23,7 @@ export default function Questionselector({setcurrentquestion,questionlength,curr
         <div  className=" flex flex-wrap gap-2 justify-between w-full  ">
           {questionumbers.map((itm,index)=>{
             return(
-      //@ts-ignore
-
-        <div onClick={()=>setcurrentquestion(index)} role="button" className={`h-15 w-15 rounded-full flex items-center justify-center text-sm cursor-pointer hover:bg-zinc-500 transition-colors ${isanswered(index) ? "bg-purple-500":"bg-zinc-800"} ${currentquestion == index ? "bg-zinc-500 ring-1 ring-amber-50":""} `}>{index+1}</div>
+        <div key={index} onClick={()=>setcurrentquestion(index)} role="button" className={`h-15 w-15 rounded-full flex items-center justify-center text-sm cursor-pointer hover:bg-zinc-500 transition-colors ${isanswered(index) ? "bg-purple-500":"bg-zinc-800"} ${currentquestion == index ? "bg-zinc-500 ring-1 ring-amber-50":""} `}>{index+1}</div>
 
             )
           })}

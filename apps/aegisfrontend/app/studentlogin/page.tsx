@@ -1160,7 +1160,7 @@ function StudentLogin() {
 ];
 
   // Authenticate the student using the owner contract
-  const authenticateUser = async (value) => {
+  const authenticateUser = async (value:any) => {
     setLoading(true);
     setMessage("");
     try {
@@ -1187,9 +1187,11 @@ function StudentLogin() {
 
       // Create owner contract instance
       const contract = new ethers.Contract(contractAddressOwner, contractABIOwner, signer);
+	  //@ts-ignore
       setContractOwner(contract);
 
       const contractStudents = new ethers.Contract(contractAddressStudents, contractABIStudents, signer);
+	  //@ts-ignore
         setContractStudents(contractStudents);
 
     //   // Call authStudents to check if the student is registered
@@ -1205,6 +1207,8 @@ function StudentLogin() {
     //   }
     } catch (err) {
       setMessage("Error connecting wallet or authenticating student");
+	  //@ts-ignore
+
       console.log(err.message);
       setLoading(false);
     }
@@ -1217,6 +1221,8 @@ function StudentLogin() {
     try {
       // Call getCIDfromPool to get the CID, question set name, and access time
       console.log("in fetch question")
+	  //@ts-ignore
+
       const val = await contractStudents.getCIDfromPool();
       setQuesCID(val[0]);
       setQuesSet_name(val[1]);
@@ -1236,7 +1242,11 @@ function StudentLogin() {
       setQuestionsData(questionJson);
 	window.location.href=`./studentdashboard/${publickey}`
     } catch (err) {
+	  //@ts-ignore
+
       setMessage("Error fetching questions: " + err.message);
+	  //@ts-ignore
+
       console.log(err.message);
       setQuestionsData(null);
     } finally {
@@ -1245,7 +1255,7 @@ function StudentLogin() {
   };
 
   // Handle form submission
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e:any) => {
     e.preventDefault();
     const value = e.target.form.elements[0].value;
 	setpublickey(value)
@@ -1321,6 +1331,8 @@ function StudentLogin() {
           </p>
           <ul className="list-disc list-inside text-white space-y-2 font-poppins">
             {Array.isArray(questionsData) ? (
+	  //@ts-ignore
+
               questionsData.map((question, index) => (
                 <li key={index} className="text-sm sm:text-lg">
                   {question}

@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 export default function Question({
   questionname,
     options,
@@ -8,25 +10,30 @@ export default function Question({
     lastquestion,
     className
   }: {
-    questionname: String,
-    options: String[],
+    questionname: string,
+    options: string[],
     handleselectedanswers: (index: number, optionindex: number) => void,
     questionnumber: number,
-    answeredquestions: object[],
+    answeredquestions: { questionIndex: number, selectedOption: string }[],
     nextquestion:()=>void,
     lastquestion:()=>void,
-    className:String
+    className:string
   }) {
     const isAnswered = (index: number): boolean => {
-      //@ts-ignore
-
       return answeredquestions[questionnumber].selectedOption === options[index];
     };
  
-
-    document.addEventListener("keydown",(e)=>{
-        e.preventDefault()
-    })
+    useEffect(() => {
+      const handleKeyDown = (e: KeyboardEvent) => {
+        e.preventDefault();
+      };
+      
+      document.addEventListener("keydown", handleKeyDown);
+      
+      return () => {
+        document.removeEventListener("keydown", handleKeyDown);
+      };
+    }, []);
   
     return (
       <div className={`h-full w-3/4 flex px-5 py-3 flex-col bg-[#171717]/60 rounded-xl ${className} bg-[linear-gradient(rgba(255,255,255,0.01)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.01)_1px,transparent_1px)] bg-[length:20px_20px]`}>

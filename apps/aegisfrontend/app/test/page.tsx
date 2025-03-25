@@ -1,5 +1,5 @@
 "use client"
-import { div } from "framer-motion/client";
+import { motion } from "framer-motion";
 import Navbar from "../_components/Navbar";
 import Question from "../_components/Question";
 import Questionselector from "../_components/Questionselector";
@@ -23,6 +23,18 @@ interface SubmissionData {
   answers: AnsweredQuestion[];
   timestamp: number;
 }
+
+// Add a type declaration for the window object with ethereum property
+declare global {
+  interface Window {
+    ethereum?: {
+      request: (args: { method: string }) => Promise<string[]>;
+    };
+  }
+}
+
+// Add proper error types
+type ErrorType = unknown;
 
 export default function Page() {
   const [submitted, setSubmitted] = useState(false);
@@ -399,15 +411,12 @@ export default function Page() {
   // Function to connect wallet and get student's public key
   const connectWallet = async () => {
     try {
-      // @ts-ignore
       if (!window.ethereum) {
         alert("Please install MetaMask to continue");
         return false;
       }
       
-      // @ts-ignore
       await window.ethereum.request({ method: "eth_requestAccounts" });
-      // @ts-ignore
       const provider = new ethers.BrowserProvider(window.ethereum);
       const signer = await provider.getSigner();
       const address = await signer.getAddress();
@@ -721,9 +730,7 @@ export default function Page() {
       // Attempt to submit to blockchain if student is connected
       try {
         console.log("Attempting to submit to blockchain");
-        // @ts-ignore
         if (window.ethereum) {
-          // @ts-ignore
           const provider = new ethers.BrowserProvider(window.ethereum);
           const signer = await provider.getSigner();
           
@@ -760,9 +767,6 @@ export default function Page() {
   };
 
   return (
-    //@ts-ignore
-    //@ts-ignore
-    //@ts-ignore
     <div className="h-screen font-[poppins] bg-black w-full ">
       <Navbar/>
       <div>

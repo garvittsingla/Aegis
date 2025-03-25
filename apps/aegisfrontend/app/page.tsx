@@ -48,7 +48,7 @@ export default function Home() {
               <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-full"></div>
               <div>
                 <p className="text-sm font-semibold">EduChain</p>
-                <p className="text-xs text-gray-300">Secured 500+ tests</p>
+                <p className="text-xs text-gray-300">Development phase</p>
               </div>
             </div>
           </div>
@@ -57,7 +57,7 @@ export default function Home() {
               <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-full"></div>
               <div>
                 <p className="text-sm font-semibold">Arbitrum orbit</p>
-              <p className="text-xs text-gray-300">Trusted by 10K+ users</p>
+              <p className="text-xs text-gray-300">Development phase</p>
               </div>
             </div>
           </div>
