@@ -618,6 +618,8 @@ export default function ExamSetter() {
       const cidString = await uploadToPinata(questionSet);
       setCid(cidString);
       
+      console.log("Question set uploaded to Pinata. CID:", cidString);
+      
       // Calculate Unix timestamp for unlock time
       const unlockTime = Math.floor(new Date(accessTime).getTime() / 1000);
       
@@ -625,8 +627,8 @@ export default function ExamSetter() {
       if (contract) {
         try {
           const transaction = await contract.appendQuestionCID({
-            cidString,
-            setName,
+            QuesCID: cidString,
+            SetsName: setName,
             unlockTime
           });
           
@@ -638,15 +640,16 @@ export default function ExamSetter() {
         }
       }
 
-      alert(`Question set uploaded successfully! CID: ${cidString}`);
+      // Store CID in localStorage for the test page to use
+      localStorage.setItem('examCID', cidString);
+      console.log("Exam CID stored in localStorage:", cidString);
+      
+      alert(`Question set uploaded successfully! CID: ${cidString}\n\nThis CID has been stored for students to access the exam.`);
       setQuestionSet([]);
       setIsUploading(false);
       
-      // Store CID in localStorage for the test page to use
-      localStorage.setItem('examCID', cidString);
-      
       // Provide a way to navigate to the test page
-      const goToTest = window.confirm("Would you like to go to the test page now?");
+      const goToTest = window.confirm("Would you like to preview the test now?");
       if (goToTest) {
         window.location.href = `/test?cid=${cidString}`;
       }

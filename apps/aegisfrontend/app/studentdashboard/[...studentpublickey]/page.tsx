@@ -1,17 +1,76 @@
 'use client'
-import { Download, PanelRightDashed } from 'lucide-react';
-import { useParams } from 'next/navigation'
+import { Download, PanelRightDashed, User } from 'lucide-react';
+import { useParams, useRouter } from 'next/navigation'
 import { useRef, useEffect, useState } from 'react';
 import { jsPDF } from 'jspdf';
+import { ethers } from 'ethers';
 
 export default function Page(){
+    const router = useRouter();
     const targetRef = useRef(null);
     const params = useParams<{ studentpublickey: string; }>()
     const [isClient, setIsClient] = useState(false);
+    const [examCID, setExamCID] = useState<string | null>(null);
+    const [examName, setExamName] = useState("Rust End Sem Exam");
+    const [studentPublicKey, setStudentPublicKey] = useState<string | null>(null);
+
+    // Function to connect wallet and get the student's public key
+    const connectWallet = async () => {
+      try {
+        // @ts-ignore
+        if (!window.ethereum) {
+          alert("Please install MetaMask to continue");
+          return false;
+        }
+        
+        // @ts-ignore
+        await window.ethereum.request({ method: "eth_requestAccounts" });
+        // @ts-ignore
+        const provider = new ethers.BrowserProvider(window.ethereum);
+        const signer = await provider.getSigner();
+        const address = await signer.getAddress();
+        
+        setStudentPublicKey(address);
+        console.log("Connected wallet address:", address);
+        
+        // Redirect if we're not already on the student's dashboard
+        if (params.studentpublickey !== address) {
+          router.push(`/studentdashboard/${address}`);
+        }
+        
+        return true;
+      } catch (error) {
+        console.error("Error connecting wallet:", error);
+        alert("Failed to connect wallet. Please try again.");
+        return false;
+      }
+    };
 
     useEffect(() => {
         setIsClient(true);
-    }, []);
+        
+        // Check for exam CID in localStorage
+        if (typeof window !== 'undefined') {
+            const storedCID = localStorage.getItem('examCID');
+            if (storedCID) {
+                setExamCID(storedCID);
+                console.log("Found exam CID in localStorage:", storedCID);
+            }
+        }
+        
+        // If no studentpublickey in URL or it's "undefined", connect wallet to get it
+        if (!params.studentpublickey || params.studentpublickey === "undefined") {
+          connectWallet();
+        }
+    }, [params.studentpublickey]);
+
+    const goToExam = () => {
+        if (examCID) {
+            window.location.href = `/test?cid=${examCID}`;
+        } else {
+            window.location.href = "/test";
+        }
+    };
 
     const downloadPdf = async () => {
         if (!targetRef.current || !isClient) return;
@@ -240,8 +299,18 @@ export default function Page(){
     }
     return(
         <div className='h-screen bg-black text-white font-[poppins]'> 
-            <nav className='h-20 flex items-center px-6 bg--900 w-[80%] mx-auto'>
+            <nav className='h-20 flex items-center justify-between px-6 bg--900 w-[80%] mx-auto'>
                 <h1 className='text-xl font-[boldonse]'>Aegis</h1>
+                
+                {/* Add wallet connect button if not on specific student dashboard */}
+                {(!params.studentpublickey || params.studentpublickey === "undefined") && (
+                  <button
+                    onClick={connectWallet}
+                    className='px-4 py-2 bg-purple-600 rounded-md flex items-center gap-2'
+                  >
+                    Connect Wallet <User size={16} />
+                  </button>
+                )}
             </nav>
             
         <div className='w-full flex h-96 bg--900'>
@@ -262,7 +331,7 @@ export default function Page(){
         <div className="space-y-4 text-white">
           <div>
             <span className="text-gray-300 text-sm">Exam Name</span>
-            <p className="font-medium">Rust End Sem Exam</p>
+            <p className="font-medium">{examName}</p>
           </div>
           <div>
             <span className="text-gray-300 text-sm">Date</span>
@@ -273,7 +342,33 @@ export default function Page(){
             <p className="font-medium">10:00AM</p>
           </div>
           <div>
-            <button onClick={()=>(window.location.href="/test")} className='px-3 py-2 bg-purple-600 rounded-md cursor-pointer flex items-center gap-2'>Go to Test <PanelRightDashed/></button>
+            {examCID ? (
+              <div className="space-y-2">
+                <div className="flex items-center">
+                  <span className="text-green-400 text-sm mr-2">●</span>
+                  <span className="text-gray-300 text-sm">Exam Available</span>
+                </div>
+                <button 
+                  onClick={goToExam} 
+                  className='px-3 py-2 bg-purple-600 hover:bg-purple-700 transition-colors rounded-md cursor-pointer flex items-center gap-2'
+                >
+                  Continue to Exam <PanelRightDashed/>
+                </button>
+              </div>
+            ) : (
+              <div className="space-y-2">
+                <div className="flex items-center">
+                  <span className="text-gray-400 text-sm mr-2">●</span>
+                  <span className="text-gray-300 text-sm">No Active Exam</span>
+                </div>
+                <button 
+                  className='px-3 py-2 bg-gray-600 cursor-not-allowed rounded-md flex items-center gap-2 opacity-70'
+                  disabled
+                >
+                  No Available Exam
+                </button>
+              </div>
+            )}
           </div>
         </div>
         

@@ -560,23 +560,27 @@ export default function Page() {
         const cidFromUrl = params.get('cid');
         
         if (cidFromUrl) {
+          console.log("Using CID from URL:", cidFromUrl);
           return cidFromUrl;
         }
         
         // Try to get CID from localStorage
         const cidFromStorage = localStorage.getItem('examCID');
         if (cidFromStorage) {
+          console.log("Using CID from localStorage:", cidFromStorage);
           return cidFromStorage;
         }
       }
       
       // Default CID - Replace with a known good CID from your exams
+      console.log("Using default CID");
       // You should update this with a CID you've tested
       return "QmaJpXZUbBXGa4DjsJzN3KNUHU5PkgTUv8qx7qy6ASyKeE";
     };
     
     // Get CID and fetch questions
     const cid = getCID();
+    console.log("Final CID used for fetching questions:", cid);
     if (cid) {
       fetchQuestionsFromPinata(cid);
     } else {
@@ -698,6 +702,8 @@ export default function Page() {
         localStorage.getItem('examCID') || 
         "QmaJpXZUbBXGa4DjsJzN3KNUHU5PkgTUv8qx7qy6ASyKeE";
       
+      console.log("Submission using examCID:", examCID);
+      
       // Prepare submission data
       const submissionData: SubmissionData = {
         studentPublicKey,
@@ -709,10 +715,38 @@ export default function Page() {
       console.log("Final Submission Data:", submissionData);
       
       // Upload answers to Pinata
-      const cid = await uploadSubmissionToPinata(submissionData);
-      setSubmissionCID(cid);
+      const answerCID = await uploadSubmissionToPinata(submissionData);
+      setSubmissionCID(answerCID);
+      
+      // Attempt to submit to blockchain if student is connected
+      try {
+        console.log("Attempting to submit to blockchain");
+        // @ts-ignore
+        if (window.ethereum) {
+          // @ts-ignore
+          const provider = new ethers.BrowserProvider(window.ethereum);
+          const signer = await provider.getSigner();
+          
+          // Create contract instance
+          const contract = new ethers.Contract(studentContract, studentABI, signer);
+          
+          // Submit paper to contract
+          const transaction = await contract.submitPaper(examCID, answerCID);
+          
+          console.log("Transaction sent to blockchain:", transaction.hash);
+          
+          // Wait for transaction confirmation
+          await transaction.wait();
+          console.log("Blockchain submission confirmed!");
+        }
+      } catch (blockchainError) {
+        // Don't fail the entire submission if blockchain integration fails
+        console.error("Failed to submit to blockchain:", blockchainError);
+        // We still consider the submission successful since it's stored on IPFS
+      }
       
       // Clear localStorage
+      console.log("Clearing examCID from localStorage");
       localStorage.removeItem('examCID');
       
       // Mark as submitted
