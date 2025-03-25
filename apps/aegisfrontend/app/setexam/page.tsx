@@ -9,7 +9,7 @@ export default function Page() {
     const[contract, setcontract] = useState();
   
   
-    const contractAddress = "0x00bcd463500cf3ec4e94ff9d44660970bc4883ce";
+    const contractAddress = "0xf45094ab0c3260a2a1ba3f5bfe0a73592b24d90e";
     const contractABI = [
         {
             "inputs": [
@@ -426,7 +426,7 @@ export default function Page() {
             "stateMutability": "view",
             "type": "function"
         }
-    ];
+    ]
   
     async function connectWallet() {
       //@ts-ignore

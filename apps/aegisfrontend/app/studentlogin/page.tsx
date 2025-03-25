@@ -108,7 +108,7 @@ function StudentLogin() {
   const [publickey,setpublickey] = useState(null)
 
   // Owner contract details (to authenticate student)
-  const contractAddressOwner = "0x30adbefb04d58f9587338844bfab487e4aaec19c"; // Replace with actual address
+  const contractAddressOwner = "0x7b339212b2fc76c9aaaac103494bf97766988d10"; // Replace with actual address
   const contractABIOwner =  [
 	{
 		"inputs": [],
@@ -173,32 +173,6 @@ function StudentLogin() {
 		],
 		"name": "ExamStartTimeSet",
 		"type": "event"
-	},
-	{
-		"inputs": [],
-		"name": "getExamStartTime",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "getSettersWorkingTime",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "nonpayable",
-		"type": "function"
 	},
 	{
 		"inputs": [
@@ -272,11 +246,6 @@ function StudentLogin() {
 				"internalType": "string",
 				"name": "aadharNumber",
 				"type": "string"
-			},
-			{
-				"internalType": "uint256",
-				"name": "dateOfBirth",
-				"type": "uint256"
 			}
 		],
 		"name": "registerSetter",
@@ -644,6 +613,19 @@ function StudentLogin() {
 		"type": "function"
 	},
 	{
+		"inputs": [],
+		"name": "getExamStartTime",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
 		"inputs": [
 			{
 				"internalType": "bytes32",
@@ -657,6 +639,19 @@ function StudentLogin() {
 				"internalType": "bytes32",
 				"name": "",
 				"type": "bytes32"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getSettersWorkingTime",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",
@@ -730,6 +725,16 @@ function StudentLogin() {
 			{
 				"internalType": "string",
 				"name": "role",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "studID",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "adnumber",
 				"type": "string"
 			}
 		],

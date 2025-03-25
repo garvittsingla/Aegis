@@ -23,7 +23,7 @@ export default function page() {
     dateofBirth: "1742779250",
   };
 
-  const contractAddress = "0x30adbefb04d58f9587338844bfab487e4aaec19c";
+  const contractAddress = "0x7b339212b2fc76c9aaaac103494bf97766988d10";
   const contractABI = [
     {
       "inputs": [],
@@ -88,32 +88,6 @@ export default function page() {
       ],
       "name": "ExamStartTimeSet",
       "type": "event"
-    },
-    {
-      "inputs": [],
-      "name": "getExamStartTime",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "getSettersWorkingTime",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "nonpayable",
-      "type": "function"
     },
     {
       "inputs": [
@@ -187,11 +161,6 @@ export default function page() {
           "internalType": "string",
           "name": "aadharNumber",
           "type": "string"
-        },
-        {
-          "internalType": "uint256",
-          "name": "dateOfBirth",
-          "type": "uint256"
         }
       ],
       "name": "registerSetter",
@@ -559,6 +528,19 @@ export default function page() {
       "type": "function"
     },
     {
+      "inputs": [],
+      "name": "getExamStartTime",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
       "inputs": [
         {
           "internalType": "bytes32",
@@ -572,6 +554,19 @@ export default function page() {
           "internalType": "bytes32",
           "name": "",
           "type": "bytes32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getSettersWorkingTime",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
         }
       ],
       "stateMutability": "view",
@@ -646,6 +641,16 @@ export default function page() {
           "internalType": "string",
           "name": "role",
           "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "studID",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "adnumber",
+          "type": "string"
         }
       ],
       "stateMutability": "view",
@@ -709,7 +714,8 @@ export default function page() {
       "stateMutability": "view",
       "type": "function"
     }
-  ];
+  ]
+
   const StudentRegistrationFees = ethers.parseEther("0.00025");
       //@ts-ignore
 
